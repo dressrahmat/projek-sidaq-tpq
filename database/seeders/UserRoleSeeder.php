@@ -24,33 +24,34 @@ class UserRoleSeeder extends Seeder
 
         DB::beginTransaction();
         try {
-            Permission::create(['name' => 'baca-tulisan']);
-            Permission::create(['name' => 'edit-tulisan']);
-            Permission::create(['name' => 'hapus-tulisan']);
-            Permission::create(['name' => 'buat-tulisan']);
+            Permission::create(['name' => 'baca']);
+            Permission::create(['name' => 'edit']);
+            Permission::create(['name' => 'hapus']);
+            Permission::create(['name' => 'buat']);
 
 
+            Role::create(['name' => 'superadmin']);
             Role::create(['name' => 'admin']);
-            Role::create(['name' => 'penulis']);
-            Role::create(['name' => 'pembaca']);
+            Role::create(['name' => 'ustadz']);
+            Role::create(['name' => 'santri']);
 
-            $penulis = User::create(array_merge([
+            $superadmin = User::create(array_merge([
+                'name' => 'superadmin',
+                'email' => 'superadmin@gmail.com',
+            ], $default_user_value));
+
+            $superadmin->assignRole('superadmin');
+
+            $admin = User::create(array_merge([
                 'name' => 'admin',
                 'email' => 'admin@gmail.com',
             ], $default_user_value));
 
-            $penulis->assignRole('admin');
+            $admin->assignRole('admin');
 
-            $penulis = User::create(array_merge([
-                'name' => 'dedy',
-                'email' => 'dedy@gmail.com',
-            ], $default_user_value));
-
-            $penulis->assignRole('penulis');
-
-            $pembaca = User::factory()->count(350)->create()->each(function ($user) {
-                $user->assignRole('pembaca');
-            });
+            // $pembaca = User::factory()->count(350)->create()->each(function ($user) {
+            //     $user->assignRole('pembaca');
+            // });
 
             DB::commit();
         } catch (\Throwable $th) {

@@ -2,14 +2,18 @@
 
 namespace App\Livewire\Admin\Masjids;
 
+use App\Models\Masjid;
 use Livewire\Component;
 use Livewire\Attributes\On;
+use Livewire\WithFileUploads;
 use App\Livewire\Forms\MasjidForm;
 use Illuminate\Support\Facades\DB;
 use App\Livewire\Admin\Masjids\MasjidsTable;
 
 class MasjidsEdit extends Component
 {
+    use WithFileUploads;
+    
     public MasjidForm $form;
 
     public $modalEdit = false;

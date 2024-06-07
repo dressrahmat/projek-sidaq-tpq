@@ -54,7 +54,7 @@ class MasjidSeeder extends Seeder
 
             $urutan = 0;
             foreach ($masjids as $masjid) {
-                $masjid['photo_masjid'] = 'storage/uploads/images/masjid/'.($urutan++ % 5) + 1 .'.png';
+                $masjid['photo_masjid'] = 'uploads/images/masjid/'.($urutan++ % 5) + 1 .'.png';
                 Masjid::create($masjid);
             }
 

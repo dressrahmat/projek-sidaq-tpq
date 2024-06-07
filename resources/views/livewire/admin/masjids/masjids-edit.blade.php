@@ -13,9 +13,9 @@
                     <label class="form-control">
                         <span class="label-text text-base-content mb-2">Upload Photo Masjid</span>
                         <div class="relative mb-2">
-                            <label for="photo_jenis_paket" class="cursor-pointer flex items-center justify-center">
+                            <label for="photo_masjid" class="cursor-pointer flex items-center justify-center">
                                 <div class="shadow-lg w-full h-[350px] rounded-lg flex items-center justify-center bg-cover bg-center"
-                                    style="background-image: url('{{ !$form->photo_masjid ? asset('assets/images/website/add-image.png') : (is_string($form->photo_masjid) ? $form->photo_masjid : $form->photo_masjid->temporaryUrl()) }}');">
+                                    style="background-image: url('{{ !$form->photo_masjid ? asset('assets/images/website/add-image.png') : (is_string($form->photo_masjid) ? 'storage/' . $form->photo_masjid : $form->photo_masjid->temporaryUrl()) }}');">
                                     @if (!$form->photo_masjid || !is_object($form->photo_masjid) || !$form->photo_masjid instanceof UploadedFile)
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-400"
                                             fill="none" viewBox="0 0 24 24" stroke="currentColor">

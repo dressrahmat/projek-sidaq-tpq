@@ -6,6 +6,7 @@ use Livewire\Form;
 use App\Models\Masjid;
 use Livewire\Attributes\Rule;
 use Livewire\Attributes\Validate;
+use Illuminate\Support\Facades\Storage;
 
 class MasjidForm extends Form
 {
@@ -38,7 +39,7 @@ class MasjidForm extends Form
             $folderPath = 'uploads/images/masjid/';
             $fileName = time() . '.' . $this->photo_masjid->getClientOriginalExtension();
             $this->photo_masjid->storeAs('public/' . $folderPath, $fileName);
-            $this->photo_masjid = 'storage/' . $folderPath . $fileName;
+            $this->photo_masjid = $folderPath . $fileName;
 
             $masjid->update([
                 'photo_masjid' => $this->photo_masjid,
@@ -60,17 +61,16 @@ class MasjidForm extends Form
             $folderPath = 'uploads/images/masjid/';
             $fileName = time() . '.' . $this->photo_masjid->getClientOriginalExtension();
             $this->photo_masjid->storeAs('public/' . $folderPath, $fileName);
-            $this->photo_masjid = 'storage/' . $folderPath . $fileName;
+            $this->photo_masjid = $folderPath . $fileName;
 
             // Hapus gambar lama jika ada
             $oldPhotoPath = $this->masjid->photo_masjid;
-            if ($oldPhotoPath && Storage::exists($oldPhotoPath)) {
-                Storage::delete($oldPhotoPath);
+            if ($oldPhotoPath && Storage::disk('public')->exists($oldPhotoPath)) {
+                Storage::disk('public')->delete($oldPhotoPath);
+                $this->masjid->update([
+                    'photo_masjid' => $this->photo_masjid,
+                ]);
             }
-
-            $this->masjid->update([
-                'photo_masjid' => $this->photo_masjid,
-            ]);
         }
     }
 }

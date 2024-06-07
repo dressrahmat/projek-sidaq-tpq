@@ -24,7 +24,7 @@
                     <tr class="shadow-md">
                         <td class="border border-slate-600 rounded-l-md">{{ $data->firstItem() + $loop->index }}</td>
                         <td class="border border-slate-600 flex justify-center">
-                            <img src="{{ asset($masjid->photo_masjid) }}" alt="" class="w-20">
+                            <img src="{{ asset('storage/' . $masjid->photo_masjid) }}" alt="" class="w-20">
                         </td>
                         <td class="border border-slate-600">{{ $masjid->nama_masjid }}</td>
                         <td class="border border-slate-600  rounded-r-md">

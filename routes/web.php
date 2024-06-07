@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Admin\Roles\RolesIndex;
 use App\Livewire\Admin\Users\UsersIndex;
+use App\Livewire\Admin\Masjids\MasjidsIndex;
 use App\Livewire\Admin\Permissions\PermissionsIndex;
 
 /*
@@ -38,6 +39,8 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
     ])->group(function () {
+        
+        Route::get('/masjids', MasjidsIndex::class)->name('masjids.index');
         
         Route::get('/permissions', PermissionsIndex::class)->name('permissions.index');
         

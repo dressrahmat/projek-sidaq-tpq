@@ -26,12 +26,13 @@
                 <span class="ml-2" x-show="isOpen">Dashboard</span>
             </a>
         </li>
-        {{-- <li class="py-2 {{ request()->routeIs('blog.index') ? 'glass rounded-md' : '' }}">
-            <a wire:navigate href="{{ route('blog.index') }}" class="flex items-center px-4 py-2 my-1 text-neutral">
-                <i class="far fa-newspaper"></i>
-                <span class="ml-2" x-show="isOpen">Blog</span>
+        <li>
+            <a wire:navigate href="{{ route('masjids.index') }}"
+                class="flex items-center px-4 py-4 my-1 {{ request()->routeIs('masjids.index') ? 'glass rounded-md active bg-base-100 shadow-sm text-neutral' : ' text-base-100' }}">
+                <i class="fas fa-home"></i>
+                <span class="ml-2" x-show="isOpen">Masjid</span>
             </a>
-        </li> --}}
+        </li>
         <li>
             <details
                 {{ request()->routeIs('permissions.*') || request()->routeIs('roles.*') || request()->routeIs('users.*') ? 'open' : '' }}>
@@ -87,6 +88,13 @@
                         class="flex items-center px-4 py-4 my-1 {{ request()->routeIs('dashboard') ? 'glass rounded-md active bg-base-100 shadow-sm text-neutral' : ' text-base-100' }}">
                         <i class="fas fa-home"></i>
                         <span class="ml-2" x-show="isOpen">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a wire:navigate href="{{ route('masjids.index') }}"
+                        class="flex items-center px-4 py-4 my-1 {{ request()->routeIs('masjids.index') ? 'glass rounded-md active bg-base-100 shadow-sm text-neutral' : ' text-base-100' }}">
+                        <i class="fas fa-home"></i>
+                        <span class="ml-2" x-show="isOpen">Masjid</span>
                     </a>
                 </li>
                 {{-- <li class="py-2 {{ request()->routeIs('blog.index') ? 'glass rounded-md' : '' }}">

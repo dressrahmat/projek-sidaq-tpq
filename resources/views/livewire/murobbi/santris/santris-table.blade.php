@@ -12,7 +12,7 @@
                     <h2 class="card-title">{{ $santri->nama_lengkap }}</h2>
                     <p>{{ $santri->amanah }}</p>
                     <div class="card-actions justify-end">
-                        <button @click="$dispatch('kemampuan', { id: '{{ $santri->user->id }}' })"
+                        <button @click="$dispatch('kemampuan', { data: '{{ $santri->user->id }}' })"
                             wire:key="{{ $santri->user->id }}" type="button"
                             class="btn btn-xs text-white btn-primary">Kemampuan</button>
                     </div>

@@ -28,7 +28,7 @@ class Kemampuan extends Model
      */
     public function kemampuan_user(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'kemampuan_user', 'id_user', 'id_kemampuan')
+        return $this->belongsToMany(User::class, 'kemampuan_user', 'id_kemampuan', 'id_user')
             ->withPivot('total_nilai');
     }
 }

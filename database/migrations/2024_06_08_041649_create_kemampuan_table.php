@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('administration')->default(0);
             $table->integer('leadership')->default(0);
             $table->integer('speaking')->default(0);
-            $table->integer('menagajar')->default(0);
+            $table->integer('mengajar')->default(0);
             $table->timestamps();
         });
     }

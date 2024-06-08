@@ -2,37 +2,43 @@
 
 namespace App\Livewire\Murobbi\Kemampuans;
 
+use App\Models\User;
 use Livewire\Component;
 use Livewire\Attributes\On;
-use App\Livewire\Forms\PermissionForm;
-use Spatie\Permission\Models\Permission;
-use App\Livewire\Admin\Permissions\PermissionsTable;
+use Illuminate\Support\Facades\DB;
+use App\Livewire\Forms\KemampuanForm;
+use Spatie\Kemampuan\Models\Kemampuan;
+use App\Livewire\Admin\Kemampuans\KemampuansTable;
 
 class KemampuansCreate extends Component
 {
-    public PermissionForm $form;
+    public KemampuanForm $form;
 
-    public $modalEdit = false;
+    public $modalCreate = false;
+    public $nama_santri;
+    public $id;
 
-    #[On('form-edit')]
-    public function set_form(Permission $id)
+    #[On('kemampuan')]
+    public function set_form(User $data)
     {
-        $this->form->setForm($id);
-
-        $this->modalEdit = true;
+        $this->nama_santri = $data->profile->nama_lengkap;
+        $this->id = $data->id;
+        $this->modalCreate = true;
     }
 
-    public function edit()
+    public function save()
     {
-
+        DB::beginTransaction();
         try {
-            $simpan = $this->form->update();
-            $this->dispatch('sweet-alert', icon: 'success', title: 'data berhasil diupdate');
+            $simpan = $this->form->store($this->id);
+            $this->dispatch('sweet-alert', icon: 'success', title: 'data berhasil disimpan');
+            DB::commit();
         } catch (\Throwable $th) {
             $this->dispatch('modal-sweet-alert', icon: 'error', title: 'data gagal di hapus', text: $th->getMessage());
+            DB::rollback();
         }
 
-        $this->dispatch('refresh-data')->to(PermissionsTable::class);
+        // $this->dispatch('refresh-data')->to(KemampuansTable::class);
     }
     public function render()
     {

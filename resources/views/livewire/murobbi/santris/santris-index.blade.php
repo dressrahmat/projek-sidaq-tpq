@@ -4,6 +4,7 @@
     </div>
     <div>
         @livewire('murobbi.santris.santris-kemampuan')
+        @livewire('murobbi.santris.santris-hafalan')
     </div>
     <div>
         <x-sweet-alert />

@@ -21,10 +21,16 @@
                             </p>
                         </div>
                     @endforeach
-                    <div class="card-actions justify-end">
+                    <div class="card-actions flex-col justify-end">
                         <button @click="$dispatch('kemampuan', { data: '{{ $santri->user->id }}' })"
-                            wire:key="{{ $santri->user->id }}" type="button"
-                            class="btn btn-xs text-white btn-primary">Kemampuan</button>
+                            wire:key="{{ $santri->user->id }}" type="button" class="btn btn-xs text-white btn-primary">
+                            Kemampuan
+                        </button>
+
+                        <button @click="$dispatch('hafalan', { data: '{{ $santri->user->id }}' })"
+                            wire:key="{{ $santri->user->id }}" type="button" class="btn btn-xs text-white btn-warning">
+                            Hafalan
+                        </button>
                     </div>
                 </div>
             </div>

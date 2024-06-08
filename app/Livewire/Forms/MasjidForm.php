@@ -2,12 +2,11 @@
 
 namespace App\Livewire\Forms;
 
-use Livewire\Form;
-use App\Models\User;
 use App\Models\Masjid;
-use Livewire\Attributes\Rule;
-use Livewire\Attributes\Validate;
+use App\Models\User;
 use Illuminate\Support\Facades\Storage;
+use Livewire\Attributes\Rule;
+use Livewire\Form;
 
 class MasjidForm extends Form
 {
@@ -51,19 +50,18 @@ class MasjidForm extends Form
         $masjid = Masjid::create([
             'nama_masjid' => $this->nama_masjid,
         ]);
-        
+
         if ($this->photo_masjid) {
             // Periksa jika gambar diunggah dan merupakan instance dari UploadedFile
             $folderPath = 'uploads/images/masjid/';
-            $fileName = time() . '.' . $this->photo_masjid->getClientOriginalExtension();
-            $this->photo_masjid->storeAs('public/' . $folderPath, $fileName);
-            $this->photo_masjid = $folderPath . $fileName;
+            $fileName = time().'.'.$this->photo_masjid->getClientOriginalExtension();
+            $this->photo_masjid->storeAs('public/'.$folderPath, $fileName);
+            $this->photo_masjid = $folderPath.$fileName;
 
             $masjid->update([
                 'photo_masjid' => $this->photo_masjid,
             ]);
         }
-
 
         $this->reset();
     }
@@ -74,12 +72,12 @@ class MasjidForm extends Form
             'nama_masjid' => $this->nama_masjid,
         ]);
 
-        if (!is_string($this->photo_masjid)) {
+        if (! is_string($this->photo_masjid)) {
             // Periksa jika gambar diunggah dan merupakan instance dari UploadedFile
             $folderPath = 'uploads/images/masjid/';
-            $fileName = time() . '.' . $this->photo_masjid->getClientOriginalExtension();
-            $this->photo_masjid->storeAs('public/' . $folderPath, $fileName);
-            $this->photo_masjid = $folderPath . $fileName;
+            $fileName = time().'.'.$this->photo_masjid->getClientOriginalExtension();
+            $this->photo_masjid->storeAs('public/'.$folderPath, $fileName);
+            $this->photo_masjid = $folderPath.$fileName;
 
             // Hapus gambar lama jika ada
             $oldPhotoPath = $this->masjid->photo_masjid;

@@ -2,12 +2,11 @@
 
 namespace App\Livewire\Admin\Users;
 
-use App\Models\Masjid;
-use Livewire\Component;
 use App\Livewire\Forms\UserForm;
+use App\Models\Masjid;
 use Illuminate\Support\Facades\DB;
+use Livewire\Component;
 use Spatie\Permission\Models\Role;
-use App\Livewire\Admin\Users\UsersTable;
 
 class UsersCreate extends Component
 {
@@ -40,6 +39,7 @@ class UsersCreate extends Component
     {
         $role = Role::get();
         $masjids = Masjid::get();
+
         return view('livewire.admin.users.users-create', compact(['role', 'masjids']));
     }
 }

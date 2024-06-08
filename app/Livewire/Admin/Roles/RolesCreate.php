@@ -2,10 +2,9 @@
 
 namespace App\Livewire\Admin\Roles;
 
-use Livewire\Component;
 use App\Livewire\Forms\RoleForm;
-use App\Livewire\Admin\Roles\RolesTable;
 use Illuminate\Support\Facades\DB;
+use Livewire\Component;
 use Spatie\Permission\Models\Permission;
 
 class RolesCreate extends Component
@@ -33,6 +32,7 @@ class RolesCreate extends Component
     public function render()
     {
         $permissions = Permission::get();
+
         return view('livewire.admin.roles.roles-create', compact('permissions'));
     }
 }

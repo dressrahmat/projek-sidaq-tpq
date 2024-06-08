@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Profile extends Model
 {
     use HasFactory;
+
     protected $table = 'profile';
 
     protected $fillable = [
@@ -25,8 +26,6 @@ class Profile extends Model
 
     /**
      * Get the user that owns the Profile
-     *
-     * @return BelongsTo
      */
     public function user(): BelongsTo
     {
@@ -35,8 +34,6 @@ class Profile extends Model
 
     /**
      * Get the user that owns the Profile
-     *
-     * @return BelongsTo
      */
     public function murobbi(): BelongsTo
     {

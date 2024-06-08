@@ -4,7 +4,6 @@ namespace App\Livewire\Admin\Roles;
 
 use Livewire\Component;
 use Spatie\Permission\Models\Role;
-use App\Livewire\Admin\Roles\RolesTable;
 
 class RolesIndex extends Component
 {
@@ -17,7 +16,7 @@ class RolesIndex extends Component
         }
         $this->dispatch('refresh-data')->to(RolesTable::class);
     }
-    
+
     public function render()
     {
         return view('livewire.admin.roles.roles-index');

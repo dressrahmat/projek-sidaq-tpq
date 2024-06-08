@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\Profile;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class SantriSeeder extends Seeder
 {

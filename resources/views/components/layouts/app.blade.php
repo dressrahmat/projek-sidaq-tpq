@@ -32,10 +32,10 @@
 
     <div x-data="{ isOpen: true }" class="flex flex-col relative min-h-screen">
         <!-- Navbar -->
-        @include('components.partials.navbar')
+        @include('components.partials.admin.navbar')
 
         <!-- Sidebar -->
-        @include('components.partials.sidebar')
+        @include('components.partials.admin.sidebar')
 
         <!-- Main Content -->
         <main :class="{ 'md:ml-40 lg:ml-64': isOpen, 'md:ml-28': !isOpen }" class="sm:p-4 mb-20">
@@ -45,11 +45,11 @@
         </main>
 
         <!-- Footer -->
-        @include('components.partials.footer')
+        @include('components.partials.admin.footer')
 
     </div>
     <div class="sm:hidden">
-        @include('components.partials.bottom-botton')
+        @include('components.partials.admin.bottom-botton')
     </div>
     @livewireScripts
     @stack('scripts')

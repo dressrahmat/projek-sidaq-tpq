@@ -2,11 +2,10 @@
 
 namespace App\Livewire\Forms;
 
-use Livewire\Form;
 use App\Models\User;
-use Livewire\Attributes\Rule;
-use Livewire\Attributes\Validate;
 use Illuminate\Support\Facades\Hash;
+use Livewire\Attributes\Rule;
+use Livewire\Form;
 
 class UserForm extends Form
 {

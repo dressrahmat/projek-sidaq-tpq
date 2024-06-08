@@ -6,7 +6,6 @@ use App\Models\Masjid;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class MasjidSeeder extends Seeder
 {

@@ -2,12 +2,11 @@
 
 namespace App\Livewire\Admin\Roles;
 
-use Livewire\Component;
-use Livewire\Attributes\On;
 use App\Livewire\Forms\RoleForm;
-use App\Livewire\Admin\Roles\RolesTable;
-use Spatie\Permission\Models\Role;
+use Livewire\Attributes\On;
+use Livewire\Component;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class RolesEdit extends Component
 {
@@ -37,9 +36,11 @@ class RolesEdit extends Component
 
         $this->dispatch('refresh-data')->to(RolesTable::class);
     }
+
     public function render()
     {
         $permissions = Permission::get();
+
         return view('livewire.admin.roles.roles-edit', compact('permissions'));
     }
 }

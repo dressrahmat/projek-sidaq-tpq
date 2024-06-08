@@ -2,24 +2,26 @@
 
 namespace App\Livewire\Murobbi\Santris;
 
-use Carbon\Carbon;
-use App\Models\User;
-use Livewire\Component;
-use App\Models\Kemampuan;
-use Livewire\Attributes\On;
-use Illuminate\Support\Facades\DB;
 use App\Livewire\Forms\KemampuanForm;
-use App\Livewire\Murobbi\Santris\SantrisTable;
-use App\Livewire\Admin\Kemampuans\KemampuansTable;
+use App\Models\Kemampuan;
+use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\On;
+use Livewire\Component;
 
 class SantrisKemampuan extends Component
 {
     public KemampuanForm $form;
 
     public $modalKemampuan = false;
+
     public $nama_santri;
+
     public $id;
+
     public $tanggal_dibuat;
+
     public $kemampuanId = null;
 
     #[On('kemampuan')]
@@ -59,14 +61,14 @@ class SantrisKemampuan extends Component
             if ($tanggalInput->gt($hariIni)) {
                 throw new \Exception('Anda menginputkan data untuk besok, silahkan pilih hari ini');
             }
-                if ($this->kemampuanId) {
-                    $this->form->update($this->id);
-                    $this->dispatch('sweet-alert', icon: 'success', title: 'Data berhasil diupdate');
-                } else {
-                    // Create new kemampuan
-                    $this->form->store($this->id, $this->tanggal_dibuat);
-                    $this->dispatch('sweet-alert', icon: 'success', title: 'Data berhasil disimpan');
-                }
+            if ($this->kemampuanId) {
+                $this->form->update($this->id);
+                $this->dispatch('sweet-alert', icon: 'success', title: 'Data berhasil diupdate');
+            } else {
+                // Create new kemampuan
+                $this->form->store($this->id, $this->tanggal_dibuat);
+                $this->dispatch('sweet-alert', icon: 'success', title: 'Data berhasil disimpan');
+            }
 
             DB::commit();
         } catch (\Throwable $th) {
@@ -76,6 +78,7 @@ class SantrisKemampuan extends Component
 
         $this->dispatch('refresh-data')->to(SantrisTable::class);
     }
+
     public function render()
     {
         return view('livewire.murobbi.santris.santris-kemampuan');

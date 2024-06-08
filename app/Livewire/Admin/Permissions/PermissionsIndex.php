@@ -4,7 +4,6 @@ namespace App\Livewire\Admin\Permissions;
 
 use Livewire\Component;
 use Spatie\Permission\Models\Permission;
-use App\Livewire\Admin\Permissions\PermissionsTable;
 
 class PermissionsIndex extends Component
 {
@@ -17,7 +16,7 @@ class PermissionsIndex extends Component
         }
         $this->dispatch('refresh-data')->to(PermissionsTable::class);
     }
-    
+
     public function render()
     {
         return view('livewire.admin.permissions.permissions-index');

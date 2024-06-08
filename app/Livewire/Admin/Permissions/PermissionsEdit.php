@@ -2,11 +2,10 @@
 
 namespace App\Livewire\Admin\Permissions;
 
-use Livewire\Component;
-use Livewire\Attributes\On;
 use App\Livewire\Forms\PermissionForm;
+use Livewire\Attributes\On;
+use Livewire\Component;
 use Spatie\Permission\Models\Permission;
-use App\Livewire\Admin\Permissions\PermissionsTable;
 
 class PermissionsEdit extends Component
 {
@@ -34,6 +33,7 @@ class PermissionsEdit extends Component
 
         $this->dispatch('refresh-data')->to(PermissionsTable::class);
     }
+
     public function render()
     {
         return view('livewire.admin.permissions.permissions-edit');

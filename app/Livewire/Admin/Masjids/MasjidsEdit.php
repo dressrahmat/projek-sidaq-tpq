@@ -2,19 +2,18 @@
 
 namespace App\Livewire\Admin\Masjids;
 
-use App\Models\User;
-use App\Models\Masjid;
-use Livewire\Component;
-use Livewire\Attributes\On;
-use Livewire\WithFileUploads;
 use App\Livewire\Forms\MasjidForm;
+use App\Models\Masjid;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
-use App\Livewire\Admin\Masjids\MasjidsTable;
+use Livewire\Attributes\On;
+use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class MasjidsEdit extends Component
 {
     use WithFileUploads;
-    
+
     public MasjidForm $form;
 
     public $modalEdit = false;
@@ -24,7 +23,7 @@ class MasjidsEdit extends Component
     {
         $this->form->setForm($id);
 
-         $get_admin = User::select('id', 'name')->where('id', $this->form->admin->id)->first();
+        $get_admin = User::select('id', 'name')->where('id', $this->form->admin->id)->first();
 
         $this->dispatch('set-admin', id: $this->form->admin->id, data: collect($get_admin));
 
@@ -50,7 +49,7 @@ class MasjidsEdit extends Component
 
         $this->dispatch('refresh-data')->to(MasjidsTable::class);
     }
-    
+
     public function render()
     {
         return view('livewire.admin.masjids.masjids-edit');

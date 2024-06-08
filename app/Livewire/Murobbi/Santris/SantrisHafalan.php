@@ -2,32 +2,34 @@
 
 namespace App\Livewire\Murobbi\Santris;
 
-use Carbon\Carbon;
-use App\Models\User;
-use Livewire\Component;
-use App\Models\Kemampuan;
-use Livewire\Attributes\On;
-use Illuminate\Support\Facades\DB;
 use App\Livewire\Forms\KemampuanForm;
-use App\Livewire\Murobbi\Santris\SantrisTable;
-use App\Livewire\Admin\Kemampuans\KemampuansTable;
+use App\Models\Kemampuan;
+use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\On;
+use Livewire\Component;
 
 class SantrisHafalan extends Component
 {
     public KemampuanForm $form;
 
-    public $modalCreate = false;
+    public $modalHafalan = false;
+
     public $nama_santri;
+
     public $id;
+
     public $tanggal_dibuat;
+
     public $kemampuanId = null;
 
-    #[On('kemampuan')]
+    #[On('hafalan')]
     public function set_form(User $data)
     {
         $this->nama_santri = $data->profile->nama_lengkap;
         $this->id = $data->id;
-        $this->modalCreate = true;
+        $this->modalHafalan = true;
         $this->tanggal_dibuat = Carbon::now()->format('Y-m-d');
         $this->kemampuanId = null; // Reset kemampuanId setiap kali form dibuka
 
@@ -59,14 +61,14 @@ class SantrisHafalan extends Component
             if ($tanggalInput->gt($hariIni)) {
                 throw new \Exception('Anda menginputkan data untuk besok, silahkan pilih hari ini');
             }
-                if ($this->kemampuanId) {
-                    $this->form->update($this->id);
-                    $this->dispatch('sweet-alert', icon: 'success', title: 'Data berhasil diupdate');
-                } else {
-                    // Create new kemampuan
-                    $this->form->store($this->id, $this->tanggal_dibuat);
-                    $this->dispatch('sweet-alert', icon: 'success', title: 'Data berhasil disimpan');
-                }
+            if ($this->kemampuanId) {
+                $this->form->update($this->id);
+                $this->dispatch('sweet-alert', icon: 'success', title: 'Data berhasil diupdate');
+            } else {
+                // Create new kemampuan
+                $this->form->store($this->id, $this->tanggal_dibuat);
+                $this->dispatch('sweet-alert', icon: 'success', title: 'Data berhasil disimpan');
+            }
 
             DB::commit();
         } catch (\Throwable $th) {
@@ -76,6 +78,7 @@ class SantrisHafalan extends Component
 
         $this->dispatch('refresh-data')->to(SantrisTable::class);
     }
+
     public function render()
     {
         return view('livewire.murobbi.santris.santris-hafalan');

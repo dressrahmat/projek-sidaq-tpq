@@ -3,9 +3,8 @@
 namespace App\Livewire\Admin\Masjids;
 
 use App\Models\Masjid;
-use Livewire\Component;
 use Illuminate\Support\Facades\Storage;
-use App\Livewire\Admin\Masjids\MasjidsTable;
+use Livewire\Component;
 
 class MasjidsIndex extends Component
 {
@@ -20,13 +19,12 @@ class MasjidsIndex extends Component
                 Masjid::destroy($get_id);
             }
 
-
         } catch (\Throwable $th) {
             $this->dispatch('modal-sweet-alert', icon: 'error', title: 'data gagal di hapus', text: $th->getMessage());
         }
         $this->dispatch('refresh-data')->to(MasjidsTable::class);
     }
-    
+
     public function render()
     {
         return view('livewire.admin.masjids.masjids-index');

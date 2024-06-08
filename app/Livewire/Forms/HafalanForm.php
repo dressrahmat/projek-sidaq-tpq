@@ -2,13 +2,13 @@
 
 namespace App\Livewire\Forms;
 
-use App\Models\Kemampuan;
+use App\Models\Hafalan;
 use Livewire\Attributes\Rule;
 use Livewire\Form;
 
-class KemampuanForm extends Form
+class HafalanForm extends Form
 {
-    public ?Kemampuan $kemampuan;
+    public ?Hafalan $hafalan;
 
     public $id;
 
@@ -33,22 +33,22 @@ class KemampuanForm extends Form
     #[Rule('required', as: 'Mengajar')]
     public $mengajar;
 
-    public function setForm(Kemampuan $kemampuan)
+    public function setForm(Hafalan $hafalan)
     {
-        $this->kemampuan = $kemampuan;
+        $this->hafalan = $hafalan;
 
-        $this->khidmat = $kemampuan->khidmat;
-        $this->entrepreneur = $kemampuan->entrepreneur;
-        $this->operation = $kemampuan->operation;
-        $this->administration = $kemampuan->administration;
-        $this->leadership = $kemampuan->leadership;
-        $this->speaking = $kemampuan->speaking;
-        $this->mengajar = $kemampuan->mengajar;
+        $this->khidmat = $hafalan->khidmat;
+        $this->entrepreneur = $hafalan->entrepreneur;
+        $this->operation = $hafalan->operation;
+        $this->administration = $hafalan->administration;
+        $this->leadership = $hafalan->leadership;
+        $this->speaking = $hafalan->speaking;
+        $this->mengajar = $hafalan->mengajar;
     }
 
     public function store($id, $tanggal_input)
     {
-        $kemampuan = Kemampuan::create([
+        $hafalan = Hafalan::create([
             'khidmat' => $this->khidmat,
             'entrepreneur' => $this->entrepreneur,
             'operation' => $this->operation,
@@ -59,9 +59,9 @@ class KemampuanForm extends Form
         ]);
 
         $id_user = $id; // Id user yang ingin ditambahkan ke pivot table
-        $total_nilai = $kemampuan->khidmat + $kemampuan->entrepreneur + $kemampuan->operation + $kemampuan->administration + $kemampuan->leadership + $kemampuan->speaking + $kemampuan->mengajar;
+        $total_nilai = $hafalan->khidmat + $hafalan->entrepreneur + $hafalan->operation + $hafalan->administration + $hafalan->leadership + $hafalan->speaking + $hafalan->mengajar;
 
-        $kemampuan->kemampuan_user()->attach($id_user, [
+        $hafalan->hafalan_user()->attach($id_user, [
             'total_nilai' => $total_nilai,
             'created_at' => $tanggal_input,
             // 'updated_at' => $timestamp,
@@ -71,7 +71,7 @@ class KemampuanForm extends Form
 
     public function update($id)
     {
-        $this->kemampuan->update([
+        $this->hafalan->update([
             'khidmat' => $this->khidmat,
             'entrepreneur' => $this->entrepreneur,
             'operation' => $this->operation,
@@ -84,7 +84,7 @@ class KemampuanForm extends Form
         $timestamp = now();
         $total_nilai = $this->khidmat + $this->entrepreneur + $this->operation + $this->administration + $this->leadership + $this->speaking + $this->mengajar;
 
-        $this->kemampuan->kemampuan_user()->updateExistingPivot($id, [
+        $this->hafalan->hafalan_user()->updateExistingPivot($id, [
             'total_nilai' => $total_nilai,
         ], ['updated_at' => $timestamp]);
 

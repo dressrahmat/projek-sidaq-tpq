@@ -2,11 +2,10 @@
 
 namespace App\Livewire\Admin\Users;
 
-use App\Models\User;
-use Livewire\Component;
-use Livewire\Attributes\On;
 use App\Livewire\Forms\UserForm;
-use App\Livewire\Admin\Users\UsersTable;
+use App\Models\User;
+use Livewire\Attributes\On;
+use Livewire\Component;
 use Spatie\Permission\Models\Role;
 
 class UsersEdit extends Component
@@ -20,7 +19,7 @@ class UsersEdit extends Component
     {
         $this->form->setForm($id);
         $get_roles = Role::whereIn('id', $this->form->user->roles->pluck('id'))->pluck('name');
-        
+
         $this->dispatch('set-reset');
         $this->dispatch('set-roles-edit', data: collect($get_roles));
         $this->modalEdit = true;
@@ -37,9 +36,11 @@ class UsersEdit extends Component
 
         $this->dispatch('refresh-data')->to(UsersTable::class);
     }
+
     public function render()
     {
         $data = Role::get();
+
         return view('livewire.admin.users.users-edit', compact('data'));
     }
 }

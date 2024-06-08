@@ -4,7 +4,6 @@ namespace App\Livewire\Admin\Users;
 
 use App\Models\User;
 use Livewire\Component;
-use App\Livewire\Admin\Users\UsersTable;
 
 class UsersIndex extends Component
 {
@@ -17,6 +16,7 @@ class UsersIndex extends Component
         }
         $this->dispatch('refresh-data')->to(UsersTable::class);
     }
+
     public function render()
     {
         return view('livewire.admin.users.users-index');

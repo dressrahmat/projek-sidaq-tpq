@@ -25,6 +25,6 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
             UstadzSeeder::class,
             // SantriSeeder::class,
-        ]); 
+        ]);
     }
 }

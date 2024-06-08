@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('hafalan_user', function (Blueprint $table) {
             $table->id();
-            
+
             $table->unsignedBigInteger('id_user');
             $table->foreign('id_user')->references('id')->on('users')->onDelete('restrict');
 

@@ -6,36 +6,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Amanina Snack | {{ $title ?? 'home' }}</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;1,400;1,700&display=swap"
         rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+
+    <!-- Splide J -->
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     {{-- @livewireStyles --}}
 </head>
 
-<body class="font-lora text-gray-900 antialiased">
-    <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-base-content">
+<body class="font-montserrat text-gray-900 antialiased bg-green-50 min-h-screen flex flex-col justify-between">
+    @include('components.partials.home.navbar')
 
-    <div class="hero min-h-screen bg-base-100">
-        <div class="hero-content flex-col lg:flex-row-reverse">
-            <div class="text-center lg:text-left">
-                <h1 class="text-5xl font-bold">Simple Projek</h1>
-                <h2 class="text-2xl text-neutral font-bold mt-4">"Sistem Pelejit Potensi Ruang Objek"</h2>
-                <p class="py-6">Lejitkan potensi perusahaan dan instansi anda dengan sistem manajemen online. Rasakan pertumbuhan perusahaan dengan sistem yang dirancang khusus untuk perusahaan/instansi anda.</p>
-            </div>
-            <div class="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100 text-base-content">
-                {{{ $slot }}}
+    <main>
+
+        <div class="flex gap-x-10 bg-base-100 glass p-3 rounded-md shadow-md">
+
+            {{-- @include('components.partials.home.sidebar') --}}
+
+            <div class="w-full">
+                {{ $slot }}
             </div>
         </div>
-    </div>
-    </div>
+
+    </main>
+
+    @include('components.partials.home.footer')
     @livewireScripts
 </body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        new Splide('.splide', {
+            type: 'fade',
+            autoplay: true,
+            interval: 3000, // Interval dalam milidetik
+        }).mount();
+    });
+</script>
 
 </html>

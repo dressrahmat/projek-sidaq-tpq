@@ -3,17 +3,17 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Laravel\Sanctum\HasApiTokens;
-use Laravel\Jetstream\HasProfilePhoto;
-use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
-use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Laravel\Jetstream\HasProfilePhoto;
+use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
@@ -68,8 +68,6 @@ class User extends Authenticatable
 
     /**
      * Get the masjid that owns the User
-     *
-     * @return BelongsTo
      */
     public function masjid(): BelongsTo
     {
@@ -78,8 +76,6 @@ class User extends Authenticatable
 
     /**
      * Get the profile associated with the User
-     *
-     * @return HasOne
      */
     public function profile(): HasOne
     {
@@ -88,8 +84,6 @@ class User extends Authenticatable
 
     /**
      * Get all of the murid for the User
-     *
-     * @return HasMany
      */
     public function murid(): HasMany
     {
@@ -98,8 +92,6 @@ class User extends Authenticatable
 
     /**
      * The kemampuan_user that belong to the Kemampuan
-     *
-     * @return BelongsToMany
      */
     public function kemampuan_user(): BelongsToMany
     {
@@ -109,8 +101,6 @@ class User extends Authenticatable
 
     /**
      * The kemampuan_user that belong to the Kemampuan
-     *
-     * @return BelongsToMany
      */
     public function hafalan_user(): BelongsToMany
     {

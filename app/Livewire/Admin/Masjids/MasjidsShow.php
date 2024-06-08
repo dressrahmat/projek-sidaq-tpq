@@ -17,6 +17,6 @@ class MasjidsShow extends Component
         $dataUstadz = $this->masjid->user()->whereHas('roles', function ($query) {
             $query->where('name', 'ustadz');
         })->get();
-        return view('livewire.admin.masjids.masjids-show', compact('dataUstadz'));
+        return view('livewire.admin.masjids.masjids-show', compact(['dataUstadz']));
     }
 }

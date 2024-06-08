@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
             MasjidSeeder::class,
             UserRoleSeeder::class,
             AdminSeeder::class,
+            UstadzSeeder::class,
+            // SantriSeeder::class,
         ]); 
     }
 }

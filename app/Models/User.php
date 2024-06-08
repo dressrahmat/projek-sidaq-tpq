@@ -8,6 +8,8 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -71,5 +73,25 @@ class User extends Authenticatable
     public function masjid(): BelongsTo
     {
         return $this->belongsTo(Masjid::class, 'id_masjid', 'id');
+    }
+
+    /**
+     * Get the profile associated with the User
+     *
+     * @return HasOne
+     */
+    public function profile(): HasOne
+    {
+        return $this->hasOne(Profile::class, 'id_user', 'id');
+    }
+
+    /**
+     * Get all of the murid for the User
+     *
+     * @return HasMany
+     */
+    public function murid(): HasMany
+    {
+        return $this->hasMany(Profile::class, 'id_murobbi', 'id');
     }
 }

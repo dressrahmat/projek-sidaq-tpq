@@ -36,7 +36,7 @@
 
     <main>
 
-        <div class="flex gap-x-10 bg-base-100 glass p-3 rounded-md shadow-md">
+        <div class="flex gap-x-10 bg-base-100 glass p-3 rounded-md shadow-md h-svh">
 
             {{-- @include('components.partials.home.sidebar') --}}
 

@@ -1,13 +1,14 @@
 <?php
 
-use App\Livewire\Admin\Masjids\MasjidsIndex;
-use App\Livewire\Admin\Masjids\MasjidsShow;
-use App\Livewire\Admin\Permissions\PermissionsIndex;
+use Illuminate\Support\Facades\Route;
+use App\Livewire\Santri\Home\HomeIndex;
 use App\Livewire\Admin\Roles\RolesIndex;
 use App\Livewire\Admin\Users\UsersIndex;
+use App\Livewire\Admin\Masjids\MasjidsShow;
+use App\Livewire\Admin\Masjids\MasjidsIndex;
+use App\Livewire\Santri\Hafalan\HafalanIndex;
 use App\Livewire\Murobbi\Santris\SantrisIndex;
-use App\Livewire\Santri\Home\HomeIndex;
-use Illuminate\Support\Facades\Route;
+use App\Livewire\Admin\Permissions\PermissionsIndex;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,9 +25,11 @@ Route::get('/', function() {
     return redirect()->route('login');
 });
 
+Route::get('/home', HomeIndex::class)->name('home');
+
 Route::middleware(['auth', config('jetstream.auth_session'), 'verified'])->group(function () {
     
-    Route::get('/home', HomeIndex::class)->name('home');
+    Route::get('/hafalan', HafalanIndex::class)->name('hafalan.index');
     
     Route::get('/dashboard', function () {
         return view('dashboard');

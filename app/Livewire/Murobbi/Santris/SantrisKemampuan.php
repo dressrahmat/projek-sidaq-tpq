@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Murobbi\Kemampuans;
+namespace App\Livewire\Murobbi\Santris;
 
 use Carbon\Carbon;
 use App\Models\User;
@@ -12,11 +12,11 @@ use App\Livewire\Forms\KemampuanForm;
 use App\Livewire\Murobbi\Santris\SantrisTable;
 use App\Livewire\Admin\Kemampuans\KemampuansTable;
 
-class KemampuansCreate extends Component
+class SantrisKemampuan extends Component
 {
     public KemampuanForm $form;
 
-    public $modalCreate = false;
+    public $modalKemampuan = false;
     public $nama_santri;
     public $id;
     public $tanggal_dibuat;
@@ -27,7 +27,7 @@ class KemampuansCreate extends Component
     {
         $this->nama_santri = $data->profile->nama_lengkap;
         $this->id = $data->id;
-        $this->modalCreate = true;
+        $this->modalKemampuan = true;
         $this->tanggal_dibuat = Carbon::now()->format('Y-m-d');
         $this->kemampuanId = null; // Reset kemampuanId setiap kali form dibuka
 
@@ -78,6 +78,6 @@ class KemampuansCreate extends Component
     }
     public function render()
     {
-        return view('livewire.murobbi.kemampuans.kemampuans-create');
+        return view('livewire.murobbi.santris.santris-kemampuan');
     }
 }

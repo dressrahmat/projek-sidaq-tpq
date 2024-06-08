@@ -3,7 +3,7 @@
         @livewire('murobbi.santris.santris-table')
     </div>
     <div>
-        @livewire('murobbi.kemampuans.kemampuans-create')
+        @livewire('murobbi.santris.santris-kemampuan')
     </div>
     <div>
         <x-sweet-alert />

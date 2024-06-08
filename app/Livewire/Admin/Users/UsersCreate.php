@@ -2,11 +2,12 @@
 
 namespace App\Livewire\Admin\Users;
 
+use App\Models\Masjid;
 use Livewire\Component;
 use App\Livewire\Forms\UserForm;
-use App\Livewire\Admin\Users\UsersTable;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
+use App\Livewire\Admin\Users\UsersTable;
 
 class UsersCreate extends Component
 {
@@ -30,9 +31,15 @@ class UsersCreate extends Component
         $this->dispatch('refresh-data')->to(UsersTable::class);
     }
 
+    public function getMasjid($nama_masjid)
+    {
+        return collect(Masjid::select('id', 'nama_masjid')->where('nama_masjid', 'like', '%'.$nama_masjid.'%')->get());
+    }
+
     public function render()
     {
         $role = Role::get();
-        return view('livewire.admin.users.users-create', compact('role'));
+        $masjids = Masjid::get();
+        return view('livewire.admin.users.users-create', compact(['role', 'masjids']));
     }
 }

@@ -50,10 +50,10 @@
                     </label>
                 </div>
 
-                <!-- Nama Hak Akses -->
+                <!-- Nama Jabatan -->
                 <div class="mb-2">
-                    <x-label for="form.roles" value="Hak Akses" />
-                    <x-tom x-init="$el.roles = new Tom($el, {
+                    <x-label for="form.masjids" value="Jabatan" />
+                    <x-tom x-init="$el.masjids = new Tom($el, {
                         sortField: {
                             field: 'roles',
                             direction: 'asc',
@@ -69,6 +69,43 @@
                         @endforeach
                     </x-tom>
                     <x-input-error for="form.permissions" class="mt-1" />
+                </div>
+
+                <!-- Nama Masjid -->
+                <div class="col-span-12 mb-4">
+                    <x-label for="masjid-create" value="Masjid" />
+                    <x-tom x-init="$el.masjid = new Tom($el, {
+                        sortField: {
+                            field: 'nama_masjid',
+                            direction: 'asc',
+                        },
+                        valueField: 'id',
+                        labelField: 'nama_masjid',
+                        searchField: 'nama_masjid',
+                        load: function(query, callback) {
+                            $wire.getMasjid(query).then(results => {
+                                callback(results);
+                            }).catch(() => {
+                                callback();
+                            })
+                        },
+                        render: {
+                            option: function(item, escape) {
+                                return `<div>${escape(item.nama_masjid)}</div>`
+                            },
+                            option: function(item, escape) {
+                                return `<div>${escape(item.nama_masjid)}</div>`
+                            }
+                        }
+                    });"
+                        @set-masjid-create.window="
+                            $el.masjid.addOption(event.detail.data)
+                        "
+                        @set-reset.window="$el.masjid.clear()" id="masjid-create" type="text" class="mt-1 w-full"
+                        wire:model="form.masjid" require autocomplete="masjid-create">
+                        <option value=""></option>
+                    </x-tom>
+                    <x-input-error for="form.masjid" class="mt-1" />
                 </div>
 
                 <!-- Submit Button -->

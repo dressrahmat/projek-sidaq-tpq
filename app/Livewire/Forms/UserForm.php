@@ -26,6 +26,9 @@ class UserForm extends Form
     #[Rule('required|array')]
     public $roles;
 
+    #[Rule('nullable')]
+    public $masjid;
+
     public function setForm(User $user)
     {
         $this->user = $user;
@@ -33,13 +36,17 @@ class UserForm extends Form
         $this->name = $user->name;
         $this->email = $user->email;
         $this->password = $user->password;
-        $this->roles = $user->roles->pluck('name')->toArray();;
+        $this->roles = $user->roles->pluck('name')->toArray();
+        $this->masjid = $user->masjid->nama_masjid;
     }
 
     public function store()
     {
         $this->password = Hash::make($this->password);
         $user = User::create($this->except('user'));
+        if ($this->masjid) {
+            $user->update(['id_masjid' => $this->masjid]);
+        }
         if ($this->roles) {
             $user->assignRole($this->roles);
         }

@@ -1,4 +1,7 @@
 <div>
+    <div class="mb-4">
+        <a wire:navigate href="{{ route('masjids.index') }}" class="btn btn-primary">Kembali</a>
+    </div>
     <div class="flex gap-10 p-5 bg-base-content glass text-base-100 rounded-md shadow-md mb-10">
         <div class="w-1/4 rounded-md overflow-hidden">
             <img src="{{ asset('storage/' . $masjid->photo_masjid) }}" alt="">

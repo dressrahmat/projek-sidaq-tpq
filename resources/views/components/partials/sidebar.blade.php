@@ -27,12 +27,21 @@
             </a>
         </li>
         <li>
-            <a wire:navigate href="{{ route('masjids.index') }}"
-                class="flex items-center px-4 py-4 my-1 {{ request()->routeIs('masjids.index') ? 'glass rounded-md active bg-base-100 shadow-sm text-neutral' : ' text-base-100' }}">
+            <a wire:navigate href="{{ route('santris.index') }}"
+                class="flex items-center px-4 py-4 my-1 {{ request()->routeIs('santris.index') ? 'glass rounded-md active bg-base-100 shadow-sm text-neutral' : ' text-base-100' }}">
                 <i class="fas fa-home"></i>
-                <span class="ml-2" x-show="isOpen">Masjid</span>
+                <span class="ml-2" x-show="isOpen">Santri</span>
             </a>
         </li>
+        @role('admin')
+            <li>
+                <a wire:navigate href="{{ route('masjids.index') }}"
+                    class="flex items-center px-4 py-4 my-1 {{ request()->routeIs('masjids.index') ? 'glass rounded-md active bg-base-100 shadow-sm text-neutral' : ' text-base-100' }}">
+                    <i class="fas fa-home"></i>
+                    <span class="ml-2" x-show="isOpen">Masjid</span>
+                </a>
+            </li>
+        @endrole
         <li>
             <details
                 {{ request()->routeIs('permissions.*') || request()->routeIs('roles.*') || request()->routeIs('users.*') ? 'open' : '' }}>

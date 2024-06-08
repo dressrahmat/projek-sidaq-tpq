@@ -6,6 +6,9 @@
         </x-slot>
 
         <x-slot name="content">
+            <div>
+                <input type="date" wire:model="tanggal_dibuat" wire:change="changeDate" class="input input-warning">
+            </div>
             <div class="grid grid-cols-2 gap-4">
 
                 <!-- Khidmat -->

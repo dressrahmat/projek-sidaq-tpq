@@ -40,9 +40,15 @@ class KemampuanForm extends Form
         $this->kemampuan = $kemampuan;
 
         $this->khidmat = $kemampuan->khidmat;
+        $this->entrepreneur = $kemampuan->entrepreneur;
+        $this->operation = $kemampuan->operation;
+        $this->administration = $kemampuan->administration;
+        $this->leadership = $kemampuan->leadership;
+        $this->speaking = $kemampuan->speaking;
+        $this->mengajar = $kemampuan->mengajar;
     }
 
-    public function store($id)
+    public function store($id, $tanggal_input)
     {
         $kemampuan = Kemampuan::create([
             'khidmat' => $this->khidmat,
@@ -51,15 +57,38 @@ class KemampuanForm extends Form
             'administration' => $this->administration,
             'leadership' => $this->leadership,
             'speaking' => $this->speaking,
-            'mengajar' => $this->mengajar
+            'mengajar' => $this->mengajar,
         ]);
         
-        $kemampuan->kemampuan_user()->attach($id);
+        $id_user = $id; // Id user yang ingin ditambahkan ke pivot table
+        $total_nilai = $kemampuan->khidmat + $kemampuan->entrepreneur + $kemampuan->operation + $kemampuan->administration + $kemampuan->leadership + $kemampuan->speaking + $kemampuan->mengajar;
+
+        $kemampuan->kemampuan_user()->attach($id_user, [
+            'total_nilai' => $total_nilai,
+            'created_at' => $tanggal_input,
+            // 'updated_at' => $timestamp,
+        ]);
         $this->reset();
     }
 
-    public function update()
+    public function update($id)
     {
-        $this->kemampuan->update($this->except('kemampuan'));
+        $this->kemampuan->update([
+            'khidmat' => $this->khidmat,
+            'entrepreneur' => $this->entrepreneur,
+            'operation' => $this->operation,
+            'administration' => $this->administration,
+            'leadership' => $this->leadership,
+            'speaking' => $this->speaking,
+            'mengajar' => $this->mengajar
+        ]);
+
+        $timestamp = now();
+        $total_nilai = $this->khidmat + $this->entrepreneur + $this->operation + $this->administration + $this->leadership + $this->speaking + $this->mengajar;
+        
+        $this->kemampuan->kemampuan_user()->updateExistingPivot($id, [
+            'total_nilai' => $total_nilai
+        ], ['updated_at' => $timestamp]);
+
     }
 }

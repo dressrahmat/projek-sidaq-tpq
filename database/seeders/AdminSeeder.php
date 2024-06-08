@@ -14,17 +14,16 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        $default_user_value = [
-            'email_verified_at' => now(),
-            'password' => bcrypt(4444),
-            'remember_token' => Str::random(10),
-        ];
-
         DB::beginTransaction();
         try {
 
-            $admin = User::factory()->count(4)->create()->each(function ($user) {
-                $user->assignRole('pembaca');
+            $id_masjid = 1;
+            User::factory()->count(5)->create()->each(function ($user) use (&$id_masjid) {
+                $user->update(['id_masjid' => $id_masjid]);
+                $user->assignRole('admin');
+                
+                // Increment id_masjid from 1 to 4, then reset to 1
+                $id_masjid = ($id_masjid % 5) + 1;
             });
 
             DB::commit();

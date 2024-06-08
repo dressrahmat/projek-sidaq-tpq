@@ -25,7 +25,7 @@
                                     @endif
                                 </div>
                             </label>
-                            <input type="file" id="photo_masjid" wire:model="form.photo_masjid" accept="image/*"
+                            <input admin="file" id="photo_masjid" wire:model="form.photo_masjid" accept="image/*"
                                 class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
                         </div>
                     </label>
@@ -34,15 +34,59 @@
                     @enderror
                 </div>
 
-                <!-- Masjid -->
-                <div class=" mb-4">
-                    <x-label for="form.nama_masjid" value="Edit Masjid" />
-                    <x-input id="form.nama_masjid" type="text" class="mt-1 w-full" wire:model="form.nama_masjid"
-                        require autocomplete="form.nama_masjid" />
-                    <x-input-error for="form.nama_masjid" class="mt-1" />
-                </div>
+                <div>
+                    <!-- Masjid -->
+                    <div class=" mb-4">
+                        <x-label for="form.nama_masjid" value="Edit Masjid" />
+                        <x-input id="form.nama_masjid" type="text" class="mt-1 w-full" wire:model="form.nama_masjid"
+                            require autocomplete="form.nama_masjid" />
+                        <x-input-error for="form.nama_masjid" class="mt-1" />
+                    </div>
 
+                    <!-- Admin -->
+                    <div class="mb-4" x-data="{ id: $id('input-text') }">
+                        <x-label ::for="id" value="Admin" />
+                        <x-tom x-init="$el.admin = new Tom($el, {
+                            sortField: {
+                                field: 'name',
+                                direction: 'asc',
+                            },
+                            valueField: 'id',
+                            labelField: 'name',
+                            searchField: 'name',
+                            load: function(query, callback) {
+                                $wire.getUser(query).then(results => {
+                                    callback(results);
+                                }).catch(() => {
+                                    callback();
+                                })
+                            },
+                            render: {
+                                option: function(item, escape) {
+                                    return `<div>${escape(item.name)}</div>`
+                                },
+                                option: function(item, escape) {
+                                    return `<div>${escape(item.name)}</div>`
+                                }
+                            }
+                        });"
+                            @set-admin.window="
+                                $el.admin.clear();
+                                $el.admin.clearOptions();
+                                $el.admin.addOption(event.detail.data);
+                                $el.admin.addItem(event.detail.id);
+                                console.log(event.detail.data)
+                        "
+                            ::id="id" type="text" class="mt-1 w-full" wire:model="form.admin" require
+                            autocomplete="admin-edit">
+                            <option></option>
+                        </x-tom>
+                        <x-input-error for="form.admin" class="mt-1" />
+                    </div>
+
+                </div>
             </div>
+
         </x-slot>
 
         <x-slot name="footer">

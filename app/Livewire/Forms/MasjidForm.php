@@ -3,6 +3,7 @@
 namespace App\Livewire\Forms;
 
 use Livewire\Form;
+use App\Models\User;
 use App\Models\Masjid;
 use Livewire\Attributes\Rule;
 use Livewire\Attributes\Validate;
@@ -20,12 +21,29 @@ class MasjidForm extends Form
     #[Rule('required|image|max:2024|mimes:jpg,jpeg,png|dimensions:width=1080,height=1080', as: 'Photo Kategori')]
     public $photo_masjid;
 
+    public $admin;
+
     public function setForm(Masjid $masjid)
     {
         $this->masjid = $masjid;
 
         $this->photo_masjid = $masjid->photo_masjid;
         $this->nama_masjid = $masjid->nama_masjid;
+        $this->admin = $masjid->user()->whereHas('roles', function ($query) {
+            $query->where('name', 'admin');
+        })->first('id');
+    }
+
+    public function setUser(): array
+    {
+        $setUser = [];
+        $users = User::select('id', 'name')->whereNull('id_masjid')->get();
+
+        foreach ($users as $index => $data) {
+            $setUser[$index] = ['id' => $data->id, 'name' => $data->name];
+        }
+
+        return $setUser;
     }
 
     public function store()

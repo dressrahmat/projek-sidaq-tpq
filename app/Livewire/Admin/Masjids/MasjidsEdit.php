@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\Masjids;
 
+use App\Models\User;
 use App\Models\Masjid;
 use Livewire\Component;
 use Livewire\Attributes\On;
@@ -23,7 +24,16 @@ class MasjidsEdit extends Component
     {
         $this->form->setForm($id);
 
+         $get_admin = User::select('id', 'name')->where('id', $this->form->admin->id)->first();
+
+        $this->dispatch('set-admin', id: $this->form->admin->id, data: collect($get_admin));
+
         $this->modalEdit = true;
+    }
+
+    public function getUser($name)
+    {
+        return collect(User::select('id', 'name')->where('name', 'like', '%'.$name.'%')->whereNull('id_masjid')->get());
     }
 
     public function edit()

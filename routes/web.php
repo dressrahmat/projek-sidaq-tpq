@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Admin\Roles\RolesIndex;
 use App\Livewire\Admin\Users\UsersIndex;
+use App\Livewire\Admin\Masjids\MasjidsShow;
 use App\Livewire\Admin\Masjids\MasjidsIndex;
 use App\Livewire\Admin\Permissions\PermissionsIndex;
 
@@ -41,6 +42,8 @@ Route::middleware([
     ])->group(function () {
         
         Route::get('/masjids', MasjidsIndex::class)->name('masjids.index');
+        
+        Route::get('/masjids/{masjid}', MasjidsShow::class)->name('masjids.show');
         
         Route::get('/permissions', PermissionsIndex::class)->name('permissions.index');
         

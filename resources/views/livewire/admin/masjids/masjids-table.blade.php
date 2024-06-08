@@ -35,6 +35,13 @@
                                 <ul tabindex="0"
                                     class="dropdown-content z-[1] menu p-2 shadow bg-base-300 rounded-md w-fit">
                                     <li class="my-1">
+                                        <a wire:navigate href="{{ route('masjids.show', $masjid->id) }}"
+                                            class="btn btn-sm rounded-md btn-info">
+                                            <i class="fas fa-expand text-base text-white"></i>
+                                        </a>
+                                    </li>
+
+                                    <li class="my-1">
                                         <x-button @click="$dispatch('form-edit', { id: '{{ $masjid->id }}' })"
                                             wire:key="{{ $masjid->id }}" type="button">
                                             <i class="fas fa-edit text-base"></i>

@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('hafalan', function (Blueprint $table) {
             $table->id();
-            $table->string('awal_surat');
-            $table->string('akhir_surat');
+            $table->string('surat');
             $table->integer('awal_ayat');
             $table->integer('akhir_ayat');
             $table->enum('keterangan', ['lanjut', 'ulang'])->default('lanjut');
+            $table->boolean('status')->default(false);
             $table->timestamps();
         });
     }

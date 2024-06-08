@@ -12,11 +12,11 @@ class Hafalan extends Model
 
     protected $table = 'hafalan';
     protected $fillable = [
-        'awal_surah', 
-        'akhir_surah', 
+        'surat', 
         'awal_ayat', 
         'akhir_ayat', 
         'keterangan', 
+        'status', 
     ];
 
     /**

@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('surat');
             $table->integer('awal_ayat');
             $table->integer('akhir_ayat');
-            $table->enum('keterangan', ['lanjut', 'ulang'])->default('lanjut');
-            $table->boolean('status')->default(false);
+            $table->enum('keterangan', ['lanjut', 'ulang'])->default('ulang')->nullable();
+            $table->boolean('status')->default(false)->nullable();
             $table->timestamps();
         });
     }

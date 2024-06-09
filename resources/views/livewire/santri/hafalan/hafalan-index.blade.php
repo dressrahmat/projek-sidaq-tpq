@@ -5,4 +5,9 @@
             <livewire:santri.hafalan.hafalan-create />
         </div>
     </div>
+    <div>
+        <x-sweet-alert />
+        <x-modal-sweet-alert />
+        <x-confirm-delete />
+    </div>
 </div>

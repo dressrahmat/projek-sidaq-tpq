@@ -12,57 +12,47 @@ class HafalanForm extends Form
 
     public $id;
 
-    #[Rule('required', as: 'Khidmat')]
-    public $khidmat;
+    #[Rule('required', as: 'Surat')]
+    public $surat;
 
-    #[Rule('required', as: 'Entrepreneur')]
-    public $entrepreneur;
+    #[Rule('required', as: 'Awal Ayat')]
+    public $awal_ayat;
 
-    #[Rule('required', as: 'Operation')]
-    public $operation;
+    #[Rule('required', as: 'Akhir Ayat')]
+    public $akhir_ayat;
 
-    #[Rule('required', as: 'Administration')]
-    public $administration;
+    #[Rule('nullable', as: 'Keterangan')]
+    public $keterangan;
 
-    #[Rule('required', as: 'Leadership')]
-    public $leadership;
-
-    #[Rule('required', as: 'Speaking')]
-    public $speaking;
-
-    #[Rule('required', as: 'Mengajar')]
-    public $mengajar;
+    #[Rule('nullable', as: 'Status')]
+    public $status;
 
     public function setForm(Hafalan $hafalan)
     {
         $this->hafalan = $hafalan;
 
-        $this->khidmat = $hafalan->khidmat;
-        $this->entrepreneur = $hafalan->entrepreneur;
-        $this->operation = $hafalan->operation;
-        $this->administration = $hafalan->administration;
-        $this->leadership = $hafalan->leadership;
-        $this->speaking = $hafalan->speaking;
-        $this->mengajar = $hafalan->mengajar;
+        $this->surat = $hafalan->surat;
+        $this->awal_ayat = $hafalan->awal_ayat;
+        $this->akhir_ayat = $hafalan->akhir_ayat;
+        $this->keterangan = $hafalan->keterangan;
+        $this->status = $hafalan->status;
     }
 
     public function store($id, $tanggal_input)
     {
         $hafalan = Hafalan::create([
-            'khidmat' => $this->khidmat,
-            'entrepreneur' => $this->entrepreneur,
-            'operation' => $this->operation,
-            'administration' => $this->administration,
-            'leadership' => $this->leadership,
-            'speaking' => $this->speaking,
-            'mengajar' => $this->mengajar,
+            'surat' => $this->surat,
+            'awal_ayat' => $this->awal_ayat,
+            'akhir_ayat' => $this->akhir_ayat,
+            'keterangan' => $this->keterangan,
+            'status' => $this->status,
         ]);
 
         $id_user = $id; // Id user yang ingin ditambahkan ke pivot table
-        $total_nilai = $hafalan->khidmat + $hafalan->entrepreneur + $hafalan->operation + $hafalan->administration + $hafalan->leadership + $hafalan->speaking + $hafalan->mengajar;
 
+        $nilai = 0;
         $hafalan->hafalan_user()->attach($id_user, [
-            'total_nilai' => $total_nilai,
+            'nilai' => $nilai,
             'created_at' => $tanggal_input,
             // 'updated_at' => $timestamp,
         ]);
@@ -72,20 +62,19 @@ class HafalanForm extends Form
     public function update($id)
     {
         $this->hafalan->update([
-            'khidmat' => $this->khidmat,
-            'entrepreneur' => $this->entrepreneur,
-            'operation' => $this->operation,
-            'administration' => $this->administration,
-            'leadership' => $this->leadership,
-            'speaking' => $this->speaking,
-            'mengajar' => $this->mengajar,
+            'surat' => $this->surat,
+            'awal_ayat' => $this->awal_ayat,
+            'akhir_ayat' => $this->akhir_ayat,
+            'keterangan' => $this->keterangan,
+            'status' => $this->status,
         ]);
 
         $timestamp = now();
-        $total_nilai = $this->khidmat + $this->entrepreneur + $this->operation + $this->administration + $this->leadership + $this->speaking + $this->mengajar;
+
+        $nilai = 0;
 
         $this->hafalan->hafalan_user()->updateExistingPivot($id, [
-            'total_nilai' => $total_nilai,
+            'nilai' => $nilai,
         ], ['updated_at' => $timestamp]);
 
     }

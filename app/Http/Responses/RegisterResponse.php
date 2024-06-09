@@ -11,7 +11,7 @@ class RegisterResponse implements RegisterResponseContract
         return $request->wantsJson()
                     ? response()->json(['two_factor' => false])
                     : redirect()->intended(
-                        auth()->user()->hasRole('admin') ? route('dashboard') : route('home')
+                        auth()->user()->hasRole('admin') || auth()->user()->hasRole('admin') || auth()->user()->hasRole('ustadz') ? route('dashboard') : route('home')
                     );
     }
 }

@@ -4,9 +4,11 @@ namespace App\Livewire\Santri\Hafalan;
 
 use App\Models\Hafalan;
 use Livewire\Component;
+use Livewire\Attributes\On;
 
 class HafalanTable extends Component
 {
+    #[On('refresh-data')]
     public function render()
     {
         $data = Hafalan::whereHas('hafalan_user', function ($query) {

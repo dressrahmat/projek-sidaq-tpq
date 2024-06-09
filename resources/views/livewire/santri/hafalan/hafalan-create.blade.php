@@ -9,7 +9,7 @@
             <!-- Surah -->
             <div class="mb-1 col-span-6">
                 <x-label for="form.surat" value="Surat" />
-                <select name="" id="" class="select select-primary select-bordered bg-gray-50"
+                <select name="" id="" class="select select-primary select-bordered bg-gray-50 sm:w-full"
                     wire:model="form.surat" wire:change="changeSurat">
                     <option value="">-- Pilih Surah --</option>
                     @foreach ($suratData as $surah)
@@ -22,7 +22,7 @@
             <!-- Awal Ayat -->
             <div class="mb-1 col-span-3">
                 <x-label for="form.awal_ayat" value="Awal Ayat" />
-                <select name="" id="form.awal_ayat" class="select select-bordered bg-gray-50 w-20"
+                <select name="" id="form.awal_ayat" class="select select-bordered bg-gray-50 w-20 sm:w-full"
                     wire:model="form.awal_ayat">
                     <option value="">-</option>
                     @if ($ayat)
@@ -37,7 +37,7 @@
             <!-- Akhir Ayat -->
             <div class="mb-1 col-span-3">
                 <x-label for="form.akhir_ayat" value="Akhir Ayat" />
-                <select name="" id="form.akhir_ayat" class="select select-bordered bg-gray-50 w-20"
+                <select name="" id="form.akhir_ayat" class="select select-bordered bg-gray-50 w-20 sm:w-full"
                     wire:model="form.akhir_ayat">
                     <option value="">-</option>
                     @if ($ayat)

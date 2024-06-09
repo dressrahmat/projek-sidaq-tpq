@@ -38,7 +38,7 @@ class HafalanForm extends Form
         $this->status = $hafalan->status;
     }
 
-    public function store($id, $tanggal_input)
+    public function store()
     {
         $hafalan = Hafalan::create([
             'surat' => $this->surat,
@@ -48,12 +48,12 @@ class HafalanForm extends Form
             'status' => $this->status,
         ]);
 
-        $id_user = $id; // Id user yang ingin ditambahkan ke pivot table
+        $id_user = auth()->user()->id; // Id user yang ingin ditambahkan ke pivot table
 
         $nilai = 0;
         $hafalan->hafalan_user()->attach($id_user, [
             'nilai' => $nilai,
-            'created_at' => $tanggal_input,
+            'created_at' => now(),
             // 'updated_at' => $timestamp,
         ]);
         $this->reset();

@@ -27,9 +27,14 @@ Route::get('/', function() {
 
 Route::get('/home', HomeIndex::class)->name('home');
 
-Route::middleware(['auth', config('jetstream.auth_session'), 'verified'])->group(function () {
+Route::middleware(['auth', config('jetstream.auth_session'), 'verified', 'role:santri'])->group(function () {
     
     Route::get('/hafalan', HafalanIndex::class)->name('hafalan.index');
+    
+});
+
+Route::middleware(['auth', config('jetstream.auth_session'), 'verified', 'role:superadmin|admin|ustadz'])->group(function () {
+    
     
     Route::get('/dashboard', function () {
         return view('dashboard');

@@ -18,31 +18,31 @@ class HafalanCreate extends Component
     public $ayat;
     public $tanggal_dibuat;
     public $id;
-    public $hafalanId;
+    // public $hafalanId;
 
     public function mount()
     {
         $this->id = auth()->user()->id;
         $this->tanggal_dibuat = Carbon::now()->format('Y-m-d');
-        $this->hafalanId = null; // Reset hafalanId setiap kali form dibuka
+        // $this->hafalanId = null; // Reset hafalanId setiap kali form dibuka
 
-        $this->changeDate();
+        // $this->changeDate();
     }
 
-    public function changeDate()
-    {
-        $hafalan = Hafalan::whereHas('hafalan_user', function ($query) {
-            $query->where('id_user', $this->id)->whereDate('hafalan_user.created_at', $this->tanggal_dibuat);
-        })->first();
+    // public function changeDate()
+    // {
+    //     $hafalan = Hafalan::whereHas('hafalan_user', function ($query) {
+    //         $query->where('id_user', $this->id)->whereDate('hafalan_user.created_at', $this->tanggal_dibuat);
+    //     })->first();
         
-        if ($hafalan) {
-            $this->form->setForm($hafalan);
-            $this->hafalanId = $hafalan->id;
-        } else {
-            $this->form->reset();
-            $this->hafalanId = null;
-        }
-    }
+    //     if ($hafalan) {
+    //         $this->form->setForm($hafalan);
+    //         $this->hafalanId = $hafalan->id;
+    //     } else {
+    //         $this->form->reset();
+    //         $this->hafalanId = null;
+    //     }
+    // }
 
     public function changeSurat()
     {
@@ -55,38 +55,29 @@ class HafalanCreate extends Component
 
     public function save()
     {
-        if ($this->form->surat) {
-            $this->form->surat = $this->suratDetail["data"]["namaLatin"];
-        }
-        
+        $this->validate();
+        $this->form->surat = $this->suratDetail["data"]["namaLatin"];
         DB::beginTransaction();
         try {
-            // Validasi tanggal
-            $tanggalInput = Carbon::parse($this->tanggal_dibuat);
-            $hariIni = Carbon::now();
-
-            if ($tanggalInput->gt($hariIni)) {
-                throw new \Exception('Anda menginputkan data untuk besok, silahkan pilih hari ini');
+            $hafalan = Hafalan::whereHas('hafalan_user', function ($query){
+                $query->where('id_user', $this->id)->whereNull('keterangan');
+            })->count();
+            // dd($hafalan);
+            if ($hafalan >= 5) {
+                throw new \Exception('Silahkan setorkan terlebih dahulu hafalan anda yang lain');
             }
-            if ($this->hafalanId) {
-                $this->form->update($this->id);
-                $this->dispatch('sweet-alert', icon: 'success', title: 'Data berhasil diupdate');
-            } else {
-                // Create new kemampuan
-                $this->form->store($this->id, $this->tanggal_dibuat);
-                $this->dispatch('sweet-alert', icon: 'success', title: 'Data berhasil disimpan');
-            }
-
+            $simpan = $this->form->store();
+            $this->dispatch('sweet-alert', icon: 'success', title: 'data berhasil disimpan');
+            $this->dispatch('set-reset');
             DB::commit();
         } catch (\Throwable $th) {
-            $this->dispatch('modal-sweet-alert', icon: 'error', title: 'Data gagal disimpan', text: $th->getMessage());
+            $this->dispatch('modal-sweet-alert', icon: 'error', title: 'data gagal di simpan', text: $th->getMessage());
             DB::rollback();
         }
 
-        $this->dispatch('refresh-data');
+        $this->dispatch('refresh-data')->to(HafalanTable::class);
     }
 
-    #[On('refresh-data')]
     public function render()
     {
         $suratData = $this->suratQuran();

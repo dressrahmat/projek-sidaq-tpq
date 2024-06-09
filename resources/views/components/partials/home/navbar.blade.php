@@ -1,70 +1,38 @@
-<div class="w-full z-50">
-    <div class="navbar bg-green-300 w-full justify-between rounded-md shadow-md glass">
-        <div class="navbar-start w-1/12 mr-2 md:hidden">
-            <div class="dropdown">
-                <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 6h16M4 12h16M4 18h7" />
-                    </svg>
+<div class="navbar bg-base-100">
+    <div class="flex-1">
+        <a class="btn btn-ghost text-xl">daisyUI</a>
+    </div>
+    <div class="flex-none">
+        @auth
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+                    <i class="fas fa-poll text-lg"></i>
                 </div>
-                <ul tabindex="0"
-                    class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                     <li>
-                        <a wire:navigate href="{{ route('home') }}">Beranda</a>
+                        <a class="justify-between">
+                            Profile
+                            <span class="badge">New</span>
+                        </a>
                     </li>
-
-                </ul>
-            </div>
-        </div>
-        {{-- <div class="flex-1">
-            <a wire:navigate href="{{ route('home') }}" class="text-xl">
-                <img src="{{ asset('../assets/images/website/amanina-logo-1.png') }}" alt=""
-                    class="w-24 sm:w-40">
-            </a>
-        </div> --}}
-        <div class="navbar-center hidden lg:flex">
-            <ul class="menu menu-horizontal px-1 text-base font-semibold gap-2">
-                <li>
-                    <a wire:navigate href="{{ route('home') }}"
-                        class="{{ request()->routeIs('home') ? 'active' : '' }}">Beranda</a>
-                </li>
-            </ul>
-        </div>
-        <div class="navbar-end">
-            @auth
-                <div class="dropdown dropdown-end">
-                    <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
-                        <i class="fas fa-poll text-lg"></i>
-                    </div>
-                    <ul tabindex="0"
-                        class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                        <li>
-                            <a class="justify-between">
-                                Profile
-                                <span class="badge">New</span>
-                            </a>
-                        </li>
-                        {{-- <li>
+                    {{-- <li>
                             <a wire:navigate href="{{ route('front.dashboard') }}">Riwayat Pesanan</a>
                         </li> --}}
-                        <li>
-                            <!-- Logout Button -->
-                            <form action="{{ route('logout') }}" method="POST" class="mr-4">
-                                @csrf
-                                <button type="submit">Logout</button>
-                            </form>
-                        </li>
-                    </ul>
-                </div>
-            @else
-                <div class="dropdown text-base-content">
-                    <a wire:navigate href="{{ route('login') }}" class="btn btn-ghost btn-circle">
-                        <i class="fas fa-sign-in-alt"></i>
-                    </a>
-                </div>
-            @endauth
-        </div>
+                    <li>
+                        <!-- Logout Button -->
+                        <form action="{{ route('logout') }}" method="POST" class="mr-4">
+                            @csrf
+                            <button type="submit">Logout</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        @else
+            <div class="dropdown text-base-content">
+                <a wire:navigate href="{{ route('login') }}" class="btn btn-ghost btn-circle">
+                    <i class="fas fa-sign-in-alt"></i>
+                </a>
+            </div>
+        @endauth
     </div>
 </div>

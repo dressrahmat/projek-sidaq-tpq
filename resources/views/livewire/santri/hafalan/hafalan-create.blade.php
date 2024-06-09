@@ -4,7 +4,7 @@
             <input type="date" wire:model="tanggal_dibuat" wire:change="changeDate" class="input input-warning">
         </div>
 
-        <div class="grid grid-cols-12 gap-4">
+        <div class="grid grid-cols-12 gap-2">
 
             <!-- Surah -->
             <div class="mb-1 col-span-6">
@@ -22,9 +22,9 @@
             <!-- Awal Ayat -->
             <div class="mb-1 col-span-3">
                 <x-label for="form.awal_ayat" value="Awal Ayat" />
-                <select name="" id="form.awal_ayat" class="select select-bordered bg-gray-50 w-16"
+                <select name="" id="form.awal_ayat" class="select select-bordered bg-gray-50 w-20"
                     wire:model="form.awal_ayat">
-                    <option value="">-- Awal Ayat --</option>
+                    <option value="">-</option>
                     @if ($ayat)
                         @foreach ($ayat as $number)
                             <option value="{{ $number }}">{{ $number }}</option>
@@ -36,10 +36,10 @@
 
             <!-- Akhir Ayat -->
             <div class="mb-1 col-span-3">
-                <x-label for="form.akhir_ayat" value="Awal Ayat" />
-                <select name="" id="form.akhir_ayat" class="select select-bordered bg-gray-50 w-16"
+                <x-label for="form.akhir_ayat" value="Akhir Ayat" />
+                <select name="" id="form.akhir_ayat" class="select select-bordered bg-gray-50 w-20"
                     wire:model="form.akhir_ayat">
-                    <option value="">-- Akhir Ayat --</option>
+                    <option value="">-</option>
                     @if ($ayat)
                         @foreach ($ayat as $number)
                             <option value="{{ $number }}">{{ $number }}</option>

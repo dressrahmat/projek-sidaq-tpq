@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Amanina Snack | {{ $title ?? 'home' }}</title>
+    <title>SiDAQ TPQ| {{ $title ?? 'home' }}</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,9 +32,9 @@
 </head>
 
 <body class="font-montserrat text-gray-900 antialiased bg-green-50 min-h-screen flex flex-col justify-between">
-    @include('components.partials.home.navbar')
 
-    <main>
+    <main class="w-96 mx-auto bg-base-200">
+        @include('components.partials.home.navbar')
 
         <div class="flex gap-x-10 bg-base-100 glass p-3 rounded-md shadow-md h-svh">
 
@@ -47,7 +47,7 @@
 
     </main>
 
-    @include('components.partials.home.footer')
+    {{-- @include('components.partials.home.footer') --}}
     @livewireScripts
 </body>
 <script>

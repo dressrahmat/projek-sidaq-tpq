@@ -24,25 +24,7 @@ class HafalanCreate extends Component
     {
         $this->id = auth()->user()->id;
         $this->tanggal_dibuat = Carbon::now()->format('Y-m-d');
-        // $this->hafalanId = null; // Reset hafalanId setiap kali form dibuka
-
-        // $this->changeDate();
     }
-
-    // public function changeDate()
-    // {
-    //     $hafalan = Hafalan::whereHas('hafalan_user', function ($query) {
-    //         $query->where('id_user', $this->id)->whereDate('hafalan_user.created_at', $this->tanggal_dibuat);
-    //     })->first();
-        
-    //     if ($hafalan) {
-    //         $this->form->setForm($hafalan);
-    //         $this->hafalanId = $hafalan->id;
-    //     } else {
-    //         $this->form->reset();
-    //         $this->hafalanId = null;
-    //     }
-    // }
 
     public function changeSurat()
     {
@@ -60,9 +42,9 @@ class HafalanCreate extends Component
         DB::beginTransaction();
         try {
             $hafalan = Hafalan::whereHas('hafalan_user', function ($query){
-                $query->where('id_user', $this->id)->whereNull('keterangan');
+                $query->where('id_user', $this->id)->whereNull('keterangan')->orWhere('keterangan', 'ulang');
             })->count();
-            // dd($hafalan);
+            
             if ($hafalan >= 5) {
                 throw new \Exception('Silahkan setorkan terlebih dahulu hafalan anda yang lain');
             }

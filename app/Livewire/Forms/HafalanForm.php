@@ -59,7 +59,7 @@ class HafalanForm extends Form
         $this->reset();
     }
 
-    public function update($id)
+    public function update()
     {
         $this->hafalan->update([
             'surat' => $this->surat,
@@ -72,6 +72,7 @@ class HafalanForm extends Form
         $timestamp = now();
 
         $nilai = 0;
+        $id = auth()->user()->id;
 
         $this->hafalan->hafalan_user()->updateExistingPivot($id, [
             'nilai' => $nilai,

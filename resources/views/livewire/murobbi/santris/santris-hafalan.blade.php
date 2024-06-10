@@ -1,6 +1,6 @@
 <div>
 
-    <x-dialog-modal wire:model.live="modalHafalan" submit="save">
+    <x-dialog-modal wire:model.live="modalHafalan">
         <x-slot name="title">
             Hafalan {{ $nama_santri }}
         </x-slot>
@@ -9,49 +9,68 @@
             <div>
                 <input type="date" wire:model="tanggal_dibuat" wire:change="changeDate" class="input input-warning">
             </div>
-            <div class="grid grid-cols-12 gap-4">
+            <div class="overflow-x-auto">
+                <table class="table w-full">
+                    <thead>
+                        <tr>
+                            <th>Surah</th>
+                            <th>Awal Ayat</th>
+                            <th>Akhir Ayat</th>
+                            <th>Keterangan</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if ($hafalan)
+                            @foreach ($hafalan as $setoran)
+                                <tr>
+                                    <!-- Surah -->
+                                    <td class="mb-1 col-span-6">
+                                        <p>{{ $setoran->surat }}</p>
+                                    </td>
 
-                <!-- Surah -->
-                <div class="mb-1 col-span-4">
-                    <x-label for="form.khidmat" value="Surah" />
-                    <x-input id="form.khidmat" type="text" class="mt-1 w-full" wire:model="form.khidmat" require
-                        autocomplete="form.khidmat" />
-                    <x-input-error for="form.khidmat" class="mt-1" />
-                </div>
+                                    <!-- Awal Ayat -->
+                                    <td class="mb-1 col-span-2">
+                                        <p>{{ $setoran->awal_ayat }}</p>
+                                    </td>
 
-                <!-- Awal Ayat -->
-                <div class="mb-1 col-span-2">
-                    <x-label for="form.entrepreneur" value="Awal Ayat" />
-                    <x-input id="form.entrepreneur" type="text" class="mt-1 w-full" wire:model="form.entrepreneur"
-                        require autocomplete="form.entrepreneur" />
-                    <x-input-error for="form.entrepreneur" class="mt-1" />
-                </div>
+                                    <!-- Akhir Ayat -->
+                                    <td class="mb-1 col-span-2">
+                                        <p>{{ $setoran->akhir_ayat }}</p>
+                                    </td>
 
-                <!-- Akhir Ayat -->
-                <div class="mb-1 col-span-2">
-                    <x-label for="form.operation" value="Akhir Ayat" />
-                    <x-input id="form.operation" type="text" class="mt-1 w-full" wire:model="form.operation" require
-                        autocomplete="form.operation" />
-                    <x-input-error for="form.operation" class="mt-1" />
-                </div>
+                                    <!-- Keterangan -->
+                                    <td class="mb-1 col-span-2">
+                                        <select id="keterangan.{{ $setoran->id }}"
+                                            wire:model="keterangan.{{ $setoran->id }}"
+                                            wire:change="changeKeterangan({{ $setoran->id }})"
+                                            class="select select-primary w-full max-w-xs">
+                                            <option value="" selected>Keterangan</option>
+                                            <option value="lanjut">Lanjut</option>
+                                            <option value="ulang">Ulang</option>
+                                        </select>
+                                    </td>
 
-                <!-- Keterangan -->
-                <div class="mb-1 col-span-2">
-                    <x-label for="form.administration" value="Keterangan" />
-                    <x-input id="form.administration" type="text" class="mt-1 w-full"
-                        wire:model="form.administration" require autocomplete="form.administration" />
-                    <x-input-error for="form.administration" class="mt-1" />
-                </div>
-
-                <!-- Status -->
-                <div class="mb-1 col-span-2">
-                    <x-label for="form.administration" value="Status" />
-                    <x-input id="form.administration" type="text" class="mt-1 w-full"
-                        wire:model="form.administration" require autocomplete="form.administration" />
-                    <x-input-error for="form.administration" class="mt-1" />
-                </div>
-
+                                    <!-- Status -->
+                                    <td class="mb-1 col-span-2">
+                                        <div class="form-control">
+                                            <label class="label cursor-pointer">
+                                                <span class="label-text">Checklis jika sudah selesai</span>
+                                                <input type="checkbox" id="status.{{ $setoran->id }}"
+                                                    wire:model="status.{{ $setoran->id }}"
+                                                    wire:change="changeStatus({{ $setoran->id }})"
+                                                    @if ($setoran->status !== null) checked="checked" @endif
+                                                    class="checkbox" />
+                                            </label>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endif
+                    </tbody>
+                </table>
             </div>
+
         </x-slot>
 
         <x-slot name="footer">
@@ -59,9 +78,9 @@
                 {{ __('Cancel') }}
             </x-secondary-button>
 
-            <x-button class="ms-3" wire:loading.attr="disabled">
+            {{-- <x-button class="ms-3" wire:loading.attr="disabled">
                 Simpan
-            </x-button>
+            </x-button> --}}
         </x-slot>
     </x-dialog-modal>
 </div>

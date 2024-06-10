@@ -2,8 +2,8 @@
 
 namespace App\Livewire\Murobbi\Santris;
 
-use App\Livewire\Forms\KemampuanForm;
-use App\Models\Kemampuan;
+use App\Livewire\Forms\HafalanForm;
+use App\Models\Hafalan;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -12,17 +12,19 @@ use Livewire\Component;
 
 class SantrisHafalan extends Component
 {
-    public KemampuanForm $form;
+    public HafalanForm $form;
 
     public $modalHafalan = false;
 
     public $nama_santri;
 
+    public $hafalan;
+
     public $id;
 
-    public $tanggal_dibuat;
+    public $status = [];
 
-    public $kemampuanId = null;
+    public $keterangan = [];
 
     #[On('hafalan')]
     public function set_form(User $data)
@@ -30,24 +32,41 @@ class SantrisHafalan extends Component
         $this->nama_santri = $data->profile->nama_lengkap;
         $this->id = $data->id;
         $this->modalHafalan = true;
-        $this->tanggal_dibuat = Carbon::now()->format('Y-m-d');
-        $this->kemampuanId = null; // Reset kemampuanId setiap kali form dibuka
 
-        $this->changeDate();
+        $this->hafalan = Hafalan::whereHas('hafalan_user', function ($query) {
+            $query->where('id_user', $this->id)->whereNull('keterangan')->orWhere('keterangan', 'ulang');
+        })->get();
+
+        foreach ($this->hafalan as $key => $value) {
+            $this->keterangan[$value->id] = $value->keterangan;
+        }
+
+    }
+    
+
+    public function changeKeterangan($id)
+    {
+        $hafalan = Hafalan::findOrFail($id);
+        if ($this->keterangan[$id] != "") {
+            $hafalan->update([
+                'keterangan' => $this->keterangan[$id]
+            ]);
+            $this->dispatch('sweet-alert', icon: 'success', title: 'Data berhasil diupdate');
+        }
+
     }
 
-    public function changeDate()
+    public function changeStatus($id)
     {
-        $kemampuan = Kemampuan::whereHas('kemampuan_user', function ($query) {
-            $query->where('id_user', $this->id)->whereDate('kemampuan_user.created_at', $this->tanggal_dibuat);
-        })->first();
-        if ($kemampuan) {
-            $this->form->setForm($kemampuan);
-            $this->kemampuanId = $kemampuan->id;
-        } else {
-            $this->form->reset();
-            $this->kemampuanId = null;
+        $hafalan = Hafalan::findOrFail($id);
+        
+        if ($hafalan->keterangan == "lanjut") {
+            $hafalan->update([
+                'status' => $this->status[$id]
+            ]);
+            $this->dispatch('sweet-alert', icon: 'success', title: 'Data berhasil diupdate');
         }
+
     }
 
     public function save()
@@ -61,11 +80,11 @@ class SantrisHafalan extends Component
             if ($tanggalInput->gt($hariIni)) {
                 throw new \Exception('Anda menginputkan data untuk besok, silahkan pilih hari ini');
             }
-            if ($this->kemampuanId) {
+            if ($this->hafalanId) {
                 $this->form->update($this->id);
                 $this->dispatch('sweet-alert', icon: 'success', title: 'Data berhasil diupdate');
             } else {
-                // Create new kemampuan
+                // Create new hafalan
                 $this->form->store($this->id, $this->tanggal_dibuat);
                 $this->dispatch('sweet-alert', icon: 'success', title: 'Data berhasil disimpan');
             }
@@ -81,6 +100,7 @@ class SantrisHafalan extends Component
 
     public function render()
     {
+        // dd($hafalan);
         return view('livewire.murobbi.santris.santris-hafalan');
     }
 }

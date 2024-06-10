@@ -31,11 +31,13 @@
     {{-- @livewireStyles --}}
 </head>
 
-<body class="font-montserrat text-gray-900 antialiased bg-green-50 min-h-screen flex flex-col justify-between">
-    @include('components.partials.home.navbar')
+<body class="font-montserrat text-gray-900 antialiased  min-h-screen flex flex-col justify-between">
+    @if (!request()->routeIs('login'))
+        @include('components.partials.home.navbar')
+    @endif
 
     <main>
-        <div class="flex gap-x-10 glass p-3 rounded-md shadow-md min-h-screen">
+        <div class="flex gap-x-10 glass rounded-md shadow-md min-h-screen">
 
             {{-- @include('components.partials.home.sidebar') --}}
 

@@ -3,11 +3,12 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Profile;
+use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
-use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class UserRoleSeeder extends Seeder
 {
@@ -42,15 +43,53 @@ class UserRoleSeeder extends Seeder
             $superadmin->assignRole('superadmin');
 
             $admin = User::create(array_merge([
+                'id_masjid' => 1,
                 'name' => 'admin',
                 'email' => 'admin@gmail.com',
             ], $default_user_value));
 
             $admin->assignRole('admin');
 
-            // $pembaca = User::factory()->count(350)->create()->each(function ($user) {
-            //     $user->assignRole('pembaca');
-            // });
+            $ustadz = User::create(array_merge([
+                'id_masjid' => 1,
+                'name' => 'ustadz',
+                'email' => 'ustadz@gmail.com',
+            ], $default_user_value));
+
+            $ustadz->assignRole('ustadz');
+
+            Profile::create([
+                'id_user' => $ustadz->id,
+                'photo_profile' => 'uploads/images/profile/1.png',
+                'nama_lengkap' => 'Ustadz. Dr. Ir. H. Nurhakim, M. Sc.',
+                'tanggal_lahir' => '1970-01-01',
+                'jenis_kelamin' => 'L',
+                'amanah' => 'Ketua Masjid Al-Hikmah',
+                'provinsi' => 'Jawa Barat',
+                'kabupaten' => 'Bandung',
+                'alamat' => 'Jl. Ir. H. Nurhakim',
+            ]);
+
+            $santri = User::create(array_merge([
+                'id_masjid' => 1,
+                'name' => 'santri',
+                'email' => 'santri@gmail.com',
+            ], $default_user_value));
+
+            $santri->assignRole('santri');
+
+            Profile::create([
+                'id_user' => $santri->id,
+                'id_murobbi' => $ustadz->id,
+                'photo_profile' => 'uploads/images/profile/3.png',
+                'nama_lengkap' => 'Dedy Setiawan',
+                'tanggal_lahir' => '2002-09-11',
+                'jenis_kelamin' => 'L',
+                'amanah' => 'Pj Amal Sosial',
+                'provinsi' => 'Jawa Barat',
+                'kabupaten' => 'Bandung',
+                'alamat' => 'Jl. Ir. H. Nurhakim',
+            ]);
 
             DB::commit();
         } catch (\Throwable $th) {

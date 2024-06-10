@@ -1,7 +1,7 @@
 <div>
     <form>
         <div>
-            <input type="date" wire:model="tanggal_dibuat" wire:change="changeDate" class="input input-warning">
+            <input disabled type="date" wire:model="tanggal_dibuat" wire:change="changeDate" class="input input-warning">
         </div>
 
         <div class="grid grid-cols-12 gap-2">

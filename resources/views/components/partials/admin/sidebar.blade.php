@@ -4,7 +4,8 @@
     <!-- Logo -->
     <div class="flex items-center justify-between my-3">
         <div :class="{ 'text-2xl': isOpen, 'hidden': !isOpen }" class=" w-1/2 text-base-100">
-            <p class="text-center">Simple Projek</p>
+            <img src="{{ asset('assets/images/website/logo.png') }}" alt=""
+                class="w-20 p-4 rounded-full bg-white ml-8">
         </div>
         <button @click="isOpen = !isOpen" class="p-2 ml-4">
             <!-- Toggle -->
@@ -33,7 +34,7 @@
                 <span class="ml-2" x-show="isOpen">Santri</span>
             </a>
         </li>
-        @role('admin')
+        @role('superadmin')
             <li>
                 <a wire:navigate href="{{ route('masjids.index') }}"
                     class="flex items-center px-4 py-4 my-1 {{ request()->routeIs('masjids.index') ? 'glass rounded-md active bg-base-100 shadow-sm text-neutral' : ' text-base-100' }}">
@@ -42,6 +43,25 @@
                 </a>
             </li>
         @endrole
+        <li>
+            <details {{ request()->routeIs('profile.*') ? 'open' : '' }}>
+                <summary
+                    class="px-4 py-4 text-base-100 hover:bg-base-content hover:glass rounded-md hover:text-base-100 ">
+                    <i class="fa fa-solid fa-toolbox"></i>
+                    <span class="ml-2" x-show="isOpen">Manajemen</span>
+                </summary>
+                <ul :class="{ 'mt-2': isOpen, 'ml-0 mt-4': !isOpen }"
+                    class="{{ request()->routeIs('profile.*') ? 'glass rounded-md' : '' }}">
+                    <li class="pr-1.5">
+                        <a wire:navigate href="{{ route('profile.index') }}"
+                            class="flex items-center py-4 my-1 {{ request()->routeIs('profile.index') ? 'glass rounded-md active bg-base-100 shadow-sm text-neutral' : ' text-base-100' }}">
+                            <i class="fas fa-file-contract"></i>
+                            <span class="ml-2" x-show="isOpen">SDM</span>
+                        </a>
+                    </li>
+                </ul>
+            </details>
+        </li>
         <li>
             <details
                 {{ request()->routeIs('permissions.*') || request()->routeIs('roles.*') || request()->routeIs('users.*') ? 'open' : '' }}>

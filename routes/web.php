@@ -6,6 +6,7 @@ use App\Livewire\Admin\Roles\RolesIndex;
 use App\Livewire\Admin\Users\UsersIndex;
 use App\Livewire\Admin\Masjids\MasjidsShow;
 use App\Livewire\Admin\Masjids\MasjidsIndex;
+use App\Livewire\Admin\Profile\ProfileIndex;
 use App\Livewire\Santri\Hafalan\HafalanIndex;
 use App\Livewire\Murobbi\Santris\SantrisIndex;
 use App\Livewire\Admin\Permissions\PermissionsIndex;
@@ -40,7 +41,7 @@ Route::middleware(['auth', config('jetstream.auth_session'), 'verified', 'role:s
         return view('dashboard');
     })->name('dashboard');
 
-    Route::middleware(['role:admin'])->group(function () {
+    Route::middleware(['role:superadmin'])->group(function () {
         Route::get('/masjids', MasjidsIndex::class)->name('masjids.index');
         Route::get('/masjids/{masjid}', MasjidsShow::class)->name('masjids.show');
 
@@ -53,4 +54,6 @@ Route::middleware(['auth', config('jetstream.auth_session'), 'verified', 'role:s
     Route::get('/roles', RolesIndex::class)->name('roles.index');
 
     Route::get('/user', UsersIndex::class)->name('users.index');
+
+    Route::get('/profile', ProfileIndex::class)->name('profile.index');
 });

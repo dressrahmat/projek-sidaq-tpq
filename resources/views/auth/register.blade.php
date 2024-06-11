@@ -4,15 +4,30 @@
             <x-authentication-card-logo />
         </x-slot>
 
+        @if (session('success'))
+            <div class="mb-4 font-medium text-sm text-green-600">
+                {{ session('success') }}
+            </div>
+        @endif
         <x-validation-errors class="mb-4" />
 
         <form method="POST" action="{{ route('register') }}">
             @csrf
 
             <div>
+                <x-label for="id_masjid" value="{{ __('Masjid') }}" />
+                <x-select class="block mt-1 w-full" name="id_masjid">
+                    <option value="">-- Pilih Masjid --</option>
+                    @foreach (App\Models\Masjid::all() as $masjid)
+                        <option value="{{ $masjid->id }}">{{ $masjid->nama_masjid }}</option>
+                    @endforeach
+                </x-select>
+            </div>
+
+            <div>
                 <x-label for="name" value="{{ __('Name') }}" />
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required
-                    autofocus autocomplete="name" />
+                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')"
+                    required autofocus autocomplete="name" />
             </div>
 
             <div class="mt-4">

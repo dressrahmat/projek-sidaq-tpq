@@ -12,6 +12,7 @@
         "laravel/jetstream": "^4.3",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
+        "laravolt/indonesia": "^0.35.0",
         "livewire/livewire": "^3.0",
         "rappasoft/laravel-livewire-tables": "^3.2",
         "spatie/laravel-permission": "^6.4"

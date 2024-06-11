@@ -4,6 +4,12 @@
             <x-authentication-card-logo />
         </x-slot> --}}
 
+        @if (session('success'))
+            <div class="mb-4 font-medium text-sm text-green-600">
+                {{ session('success') }}
+            </div>
+        @endif
+
         <x-validation-errors class="mb-4" />
 
         @if (session('status'))

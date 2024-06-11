@@ -31,13 +31,13 @@
     {{-- @livewireStyles --}}
 </head>
 
-<body class="font-montserrat text-gray-900 antialiased  min-h-screen flex flex-col justify-between">
-    @if (!request()->routeIs('login'))
+<body class="font-montserrat text-gray-900 antialiased min-h-screen flex flex-col justify-between">
+    @if (!request()->routeIs('login') && !request()->routeIs('register') && !request()->routeIs('profile.create'))
         @include('components.partials.home.navbar')
     @endif
 
     <main>
-        <div class="flex gap-x-10 glass rounded-md shadow-md min-h-screen">
+        <div class="flex gap-x-10 glass rounded-md shadow-md">
 
             {{-- @include('components.partials.home.sidebar') --}}
 
@@ -48,7 +48,7 @@
 
     </main>
 
-    @include('components.partials.home.footer')
+    {{-- @include('components.partials.home.footer') --}}
     @livewireScripts
 </body>
 <script>

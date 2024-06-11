@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('nama_lengkap');
             $table->date('tanggal_lahir')->nullable()->default(Carbon::now());
             $table->enum('jenis_kelamin', ['L', 'P'])->default('L');
-            $table->string('amanah');
+            $table->string('amanah')->nullable();
             $table->string('provinsi');
             $table->string('kabupaten');
             $table->text('alamat');

@@ -27,7 +27,7 @@ class ProfileCreate extends Component
             DB::rollback();
         }
 
-        $this->dispatch('refresh-data')->to(UsersTable::class);
+        $this->dispatch('refresh-data')->to(ProfileTable::class);
     }
 
     public function getMasjid($nama_masjid)

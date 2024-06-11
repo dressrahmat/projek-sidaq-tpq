@@ -3,10 +3,12 @@
 namespace App\Livewire\Admin\Profile;
 
 use App\Models\Profile;
+use Livewire\Attributes\On;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\Views\Column;
+use App\Livewire\Admin\Profile\ProfilePilihMurobbi;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
 
@@ -22,6 +24,19 @@ class ProfileTable extends DataTableComponent
         $this->setDefaultSort('id', 'desc');
         $this->setPerPageAccepted([5, 10, 25]);
         $this->setColumnSelectDisabled();
+    }
+
+    public function bulkActions(): array
+    {
+        return [
+            'exportSelected' => 'Export',
+            'pilihMurobbi' => 'Pilih Murobbi',
+        ];
+    }
+
+    public function pilihMurobbi()
+    {
+        $this->dispatch('pilih-murobbi', data: $this->selected);
     }
 
     public function filters(): array
@@ -58,10 +73,13 @@ class ProfileTable extends DataTableComponent
         ];
     }
 
+    #[On('refresh-data')]
     public function columns(): array
     {
         return [
             Column::make("Id", "id")
+                ->hideIf(auth()->user()->id),
+            Column::make("ID User", "id_user")
                 ->hideIf(auth()->user()->id),
             Column::make("Nama lengkap", "nama_lengkap")
                 ->sortable(),
@@ -80,7 +98,7 @@ class ProfileTable extends DataTableComponent
             ) 
                 ->searchable()
                 ->sortable(),
-            Column::make('Aksi')->label(fn ($row, Column $column) => view('components.partials.datatable.aksi')->withRow($row)),
+            Column::make("Aksi")->label(fn ($row, Column $column) => view('components.partials.datatable.aksi')->withRow($row)),
         ];
     }
 

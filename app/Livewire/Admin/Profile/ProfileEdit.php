@@ -34,7 +34,7 @@ class ProfileEdit extends Component
             $this->dispatch('modal-sweet-alert', icon: 'error', title: 'data gagal diupdate', text: $th->getMessage());
         }
 
-        $this->dispatch('refresh-data')->to(UsersTable::class);
+        $this->dispatch('refresh-data')->to(ProfileTable::class);
     }
 
     public function render()

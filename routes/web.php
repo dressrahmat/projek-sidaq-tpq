@@ -39,7 +39,7 @@ Route::get('/dashboard', function () {
 })->name('dashboard');
 Route::middleware(['auth', config('jetstream.auth_session'), 'verified', 'role:santri'])->group(function () {
     
-    Route::get('/home', HomeMenu::class)->name('home.menu');
+    Route::get('/home', HomeMenu::class)->name('home');
     
     Route::get('/hafalan', HafalanIndex::class)->name('hafalan.index');
     

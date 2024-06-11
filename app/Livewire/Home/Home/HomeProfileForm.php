@@ -36,7 +36,7 @@ class HomeProfileForm extends Component
                 }
                 
                 // $this->dispatch('refresh-data')->to(MasjidsTable::class);
-            return redirect()->route('home')->with('success', 'Anda berhasil register, tunggu konfirmasi dari admin');
+            return redirect()->route('beranda')->with('success', 'Anda berhasil register, tunggu konfirmasi dari admin');
     }
     
     public function render()

@@ -42,6 +42,18 @@ class UserRoleSeeder extends Seeder
 
             $superadmin->assignRole('superadmin');
 
+            Profile::create([
+                'id_user' => $superadmin->id,
+                'photo_profile' => 'uploads/images/profile/3.png',
+                'nama_lengkap' => 'Masjid Ismuhu Yahya',
+                'tanggal_lahir' => '1970-01-01',
+                'jenis_kelamin' => 'L',
+                'amanah' => 'Ketua Masjid Al-Hikmah',
+                'provinsi' => 'Jawa Barat',
+                'kabupaten' => 'Bandung',
+                'alamat' => 'Jl. Ir. H. Nurhakim',
+            ]);
+
             $admin = User::create(array_merge([
                 'id_masjid' => 1,
                 'name' => 'admin',
@@ -49,6 +61,18 @@ class UserRoleSeeder extends Seeder
             ], $default_user_value));
 
             $admin->assignRole('admin');
+
+            Profile::create([
+                'id_user' => $admin->id,
+                'photo_profile' => 'uploads/images/profile/2.png',
+                'nama_lengkap' => 'Admin Masjid Al Hidayah',
+                'tanggal_lahir' => '1970-01-01',
+                'jenis_kelamin' => 'L',
+                'amanah' => 'Ketua Masjid Al-Hikmah',
+                'provinsi' => 'JAWA BARAT',
+                'kabupaten' => 'KABUPATEN BANDUNG',
+                'alamat' => 'Jl. Ir. H. Nurhakim',
+            ]);
 
             $ustadz = User::create(array_merge([
                 'id_masjid' => 1,
@@ -65,8 +89,8 @@ class UserRoleSeeder extends Seeder
                 'tanggal_lahir' => '1970-01-01',
                 'jenis_kelamin' => 'L',
                 'amanah' => 'Ketua Masjid Al-Hikmah',
-                'provinsi' => 'Jawa Barat',
-                'kabupaten' => 'Bandung',
+                'provinsi' => 'JAWA BARAT',
+                'kabupaten' => 'KABUPATEN BANDUNG',
                 'alamat' => 'Jl. Ir. H. Nurhakim',
             ]);
 

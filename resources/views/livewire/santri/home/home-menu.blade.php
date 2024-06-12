@@ -1,4 +1,4 @@
-<div class="pb-10 pt-20">
+<div class="pb-10 pt-20 min-h-screen">
     <section>
         <div class="grid grid-cols-2 gap-3 sm:gap-10 w-11/12 sm:w-2/5 mx-auto">
             <a wire:navigate href="{{ route('hafalan.index') }}"

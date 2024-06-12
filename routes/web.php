@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Dashboard;
 use App\Livewire\Home\Home\HomeIndex;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Santri\Home\HomeMenu;
@@ -36,9 +37,6 @@ Route::middleware(['auth', config('jetstream.auth_session'), 'verified'])->group
     Route::get('/profiles/show', ProfileShow::class)->name('profile-diri.show');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
 Route::middleware(['auth', config('jetstream.auth_session'), 'verified', 'role:santri'])->group(function () {
 
     Route::get('/home', HomeMenu::class)->name('home');
@@ -48,6 +46,8 @@ Route::middleware(['auth', config('jetstream.auth_session'), 'verified', 'role:s
 });
 
 Route::middleware(['auth', config('jetstream.auth_session'), 'verified', 'role:superadmin|admin|ustadz'])->group(function () {
+
+    Route::get('/dashboard', Dashboard::class)->name('dashboard');
 
     Route::middleware(['role:superadmin'])->group(function () {
         Route::get('/masjids', MasjidsIndex::class)->name('masjids.index');

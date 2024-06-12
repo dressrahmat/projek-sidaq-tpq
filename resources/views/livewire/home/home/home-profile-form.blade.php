@@ -7,10 +7,10 @@
             <h3 class="font-semibold">Silahkan Masukkan Data Anda Untuk Kami Proses...</h3>
         </div>
 
-        <x-validation-errors class="mb-4" />
+        {{-- <x-validation-errors class="mb-4" /> --}}
 
         <form>
-            <div class="grid grid-cols-2 gap-3">
+            <div class="grid sm:grid-cols-2 gap-3">
                 <!-- Photo Profile -->
                 <div class="mb-1">
                     <label class="form-control">
@@ -19,8 +19,8 @@
                             <!-- Label yang menutupi seluruh div -->
                             <label for="photo_profile" class="cursor-pointer flex items-center justify-center">
                                 <!-- Background untuk gambar yang diunggah -->
-                                <div class="shadow-lg w-full h-[250px] rounded-lg flex items-center justify-center bg-cover bg-center"
-                                    style="background-image: url('{{ $form->photo_profile != null ? $form->photo_profile->temporaryUrl() : asset('assets/images/website/add-image-persegi.png') }}');">
+                                <div class="shadow-lg w-full h-[350px] rounded-lg flex items-center justify-center bg-cover bg-center"
+                                    style="background-image: url('{{ $form->photo_profile != null ? $form->photo_profile->temporaryUrl() : asset('assets/images/website/add-image-vertikal.png') }}');">
                                     <!-- Icon untuk memilih gambar -->
                                     @if (!$form->photo_profile)
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-400"

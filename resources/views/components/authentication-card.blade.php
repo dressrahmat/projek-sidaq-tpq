@@ -4,6 +4,9 @@
         <div
             class="absolute inset-0 bg-gradient-to-br from-green-500 via-green-200 to-purple-500 bg-opacity-70 opacity-90">
         </div>
+        <div class="absolute top-5 left-5">
+            <img src="{{ asset('assets/images/website/logo.png') }}" alt="" class="w-20 p-4 rounded-full bg-white">
+        </div>
         <div class="relative w-11/12 sm:w-1/2 py-10">
             <h3 class="mix-blend-difference text-xl sm:text-5xl font-bold text-white mb-1">Selamat Datang</h3>
             <h4 class="mix-blend-difference text-lg sm:text-6xl font-bold text-white mb-1">DI SIDAQ TPQ</h4>

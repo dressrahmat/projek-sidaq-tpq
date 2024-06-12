@@ -1,4 +1,4 @@
-<div class="card card-side bg-base-100 shadow-md flex gap-x-4 sm:gap-x-8 w-full">
+<div class="card sm:card-side bg-base-100 shadow-md flex gap-x-4 sm:gap-x-8 w-full">
     <div class="basis-2/5">
         <img src="{{ asset('storage/' . $data->photo_profile) }}" alt="" class="w-full h-96 object-contain">
     </div>

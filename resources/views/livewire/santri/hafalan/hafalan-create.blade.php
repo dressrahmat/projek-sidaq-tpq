@@ -4,7 +4,7 @@
             <input disabled type="date" wire:model="tanggal_dibuat" wire:change="changeDate" class="input input-warning">
         </div>
 
-        <div class="grid grid-cols-12 gap-2">
+        <div class="grid grid-cols-12 gap-3">
 
             <!-- Surah -->
             <div class="mb-1 col-span-6">

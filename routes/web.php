@@ -30,9 +30,9 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::get('/beranda', HomeIndex::class)->name('beranda');
 
 Route::middleware(['auth', config('jetstream.auth_session'), 'verified'])->group(function () {
+    Route::get('/beranda', HomeIndex::class)->name('beranda');
     Route::get('/profiles', HomeProfileForm::class)->name('profile.create');
     Route::get('/profiles/show', ProfileShow::class)->name('profile-diri.show');
 });

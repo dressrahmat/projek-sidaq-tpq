@@ -10,6 +10,7 @@
 
     <div class="basis-2/5">
         {{-- @livewire('admin.profile.profile-create') --}}
+        @livewire('admin.users.users-edit')
         @livewire('admin.profile.profile-edit')
         @livewire('admin.profile.profile-pilih-murobbi')
     </div>

@@ -1,17 +1,18 @@
 <?php
 
-use App\Livewire\Admin\Masjids\MasjidsIndex;
-use App\Livewire\Admin\Masjids\MasjidsShow;
-use App\Livewire\Admin\Permissions\PermissionsIndex;
-use App\Livewire\Admin\Profile\ProfileIndex;
+use App\Livewire\Home\Home\HomeIndex;
+use Illuminate\Support\Facades\Route;
+use App\Livewire\Santri\Home\HomeMenu;
 use App\Livewire\Admin\Roles\RolesIndex;
 use App\Livewire\Admin\Users\UsersIndex;
-use App\Livewire\Home\Home\HomeIndex;
+use App\Livewire\Admin\Masjids\MasjidsShow;
 use App\Livewire\Home\Home\HomeProfileForm;
-use App\Livewire\Murobbi\Santris\SantrisIndex;
+use App\Livewire\Admin\Masjids\MasjidsIndex;
+use App\Livewire\Admin\Profile\ProfileIndex;
+use App\Livewire\Santri\Profile\ProfileShow;
 use App\Livewire\Santri\Hafalan\HafalanIndex;
-use App\Livewire\Santri\Home\HomeMenu;
-use Illuminate\Support\Facades\Route;
+use App\Livewire\Murobbi\Santris\SantrisIndex;
+use App\Livewire\Admin\Permissions\PermissionsIndex;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,7 @@ Route::get('/beranda', HomeIndex::class)->name('beranda');
 
 Route::middleware(['auth', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::get('/profiles', HomeProfileForm::class)->name('profile.create');
+    Route::get('/profiles/show', ProfileShow::class)->name('profile-diri.show');
 });
 
 Route::get('/dashboard', function () {

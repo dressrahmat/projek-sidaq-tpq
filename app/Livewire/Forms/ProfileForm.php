@@ -2,9 +2,10 @@
 
 namespace App\Livewire\Forms;
 
+use Livewire\Form;
 use App\Models\Profile;
 use Livewire\Attributes\Rule;
-use Livewire\Form;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileForm extends Form
 {
@@ -33,7 +34,7 @@ class ProfileForm extends Form
     #[Rule('required', as: 'Alamat')]
     public $alamat;
 
-    #[Rule('required|image|max:2024|mimes:jpg,jpeg,png|dimensions:width=1080,height=1080', as: 'Photo Profile')]
+    #[Rule('required|image|max:2024|mimes:jpg,jpeg,png|dimensions:width=300,height=400', as: 'Photo Profile')]
     public $photo_profile;
 
     public $admin;
@@ -44,6 +45,12 @@ class ProfileForm extends Form
 
         $this->photo_profile = $profile->photo_profile;
         $this->nama_lengkap = $profile->nama_lengkap;
+        $this->tanggal_lahir = $profile->tanggal_lahir;
+        $this->jenis_kelamin = $profile->jenis_kelamin;
+        $this->amanah = $profile->amanah;
+        $this->provinsi = $profile->provinsi;
+        $this->kabupaten = $profile->kabupaten;
+        $this->alamat = $profile->alamat;
     }
 
     public function store()
@@ -77,7 +84,14 @@ class ProfileForm extends Form
     public function update()
     {
         $this->profile->update([
-            'nama_profile' => $this->nama_profile,
+            'id_user' => auth()->user()->id,
+            'nama_lengkap' => $this->nama_lengkap,
+            'tanggal_lahir' => $this->tanggal_lahir,
+            'jenis_kelamin' => $this->jenis_kelamin,
+            'amanah' => $this->amanah,
+            'provinsi' => $this->provinsi,
+            'kabupaten' => $this->kabupaten,
+            'alamat' => $this->alamat,
         ]);
 
         if (! is_string($this->photo_profile)) {

@@ -2,11 +2,12 @@
 
 namespace App\Livewire\Home\Home;
 
-use App\Livewire\Forms\ProfileForm;
-use Illuminate\Support\Facades\DB;
-use Laravolt\Indonesia\Models\City;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\DB;
+use App\Livewire\Forms\ProfileForm;
+use Laravolt\Indonesia\Models\City;
+use Laravolt\Indonesia\Models\Province;
 
 class HomeProfileForm extends Component
 {
@@ -16,6 +17,7 @@ class HomeProfileForm extends Component
 
     public $dataKabupaten;
 
+
     public function changeProvinsi()
     {
         $this->dataKabupaten = City::where('province_code', $this->form->provinsi)->get();
@@ -24,7 +26,8 @@ class HomeProfileForm extends Component
     public function save()
     {
         $this->validate();
-
+        $this->form->provinsi = Province::where('code', $this->form->provinsi)->first()->name;
+        $this->form->kabupaten = City::where('code', $this->form->kabupaten)->first()->name;
         DB::beginTransaction();
         try {
             $simpan = $this->form->store();

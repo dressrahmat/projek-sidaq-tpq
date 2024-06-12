@@ -12,7 +12,7 @@
     <div>
         <table class="table text-base">
             <!-- head -->
-            <thead class="text-base">
+            <thead class="sm:text-base">
                 <tr>
                     <th>No</th>
                     <th>Surah</th>

@@ -2,10 +2,9 @@
 
 namespace App\Livewire\Forms;
 
-use Livewire\Form;
 use App\Models\Profile;
 use Livewire\Attributes\Rule;
-use Livewire\Attributes\Validate;
+use Livewire\Form;
 
 class ProfileForm extends Form
 {

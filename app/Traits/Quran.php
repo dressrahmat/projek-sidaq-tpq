@@ -17,8 +17,10 @@ trait Quran
             $response = $client->get($url);
             if ($response->getStatusCode() == 200) {
                 $data = json_decode($response->getBody(), true);
+
                 return $data;
             }
+
             return null;
         });
     }
@@ -32,8 +34,10 @@ trait Quran
             $response = $client->get($url);
             if ($response->getStatusCode() == 200) {
                 $data = json_decode($response->getBody(), true);
+
                 return $data;
             }
+
             return null;
         });
     }

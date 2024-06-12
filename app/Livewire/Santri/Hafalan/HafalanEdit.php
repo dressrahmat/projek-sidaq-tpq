@@ -2,21 +2,26 @@
 
 namespace App\Livewire\Santri\Hafalan;
 
-use App\Traits\Quran;
-use App\Models\Hafalan;
-use Livewire\Component;
-use Livewire\Attributes\On;
 use App\Livewire\Forms\HafalanForm;
+use App\Models\Hafalan;
+use App\Traits\Quran;
+use Livewire\Attributes\On;
+use Livewire\Component;
 
 class HafalanEdit extends Component
 {
     use Quran;
+
     public HafalanForm $form;
 
     public $ayat;
+
     public $suratDetail;
+
     public $jumlahAyat;
+
     public $quran;
+
     public $modalEdit = false;
 
     public function mount()
@@ -29,18 +34,17 @@ class HafalanEdit extends Component
     {
         $this->form->setForm($id);
         $namaSuratDicari = $this->form->surat;
-        
-        foreach($this->quran["data"] as $key => $value) {
+
+        foreach ($this->quran['data'] as $key => $value) {
             $data = $value;
 
             // Jika namaLatin pada data sesuai dengan nama surat yang dicari
-            if ($data["namaLatin"] === $namaSuratDicari) {
+            if ($data['namaLatin'] === $namaSuratDicari) {
                 // Ambil nomor surat
-                $this->form->surat = $data["nomor"];
+                $this->form->surat = $data['nomor'];
                 break;
             }
         }
-
 
         $this->modalEdit = true;
 
@@ -50,7 +54,7 @@ class HafalanEdit extends Component
     public function changeSurat()
     {
         $this->suratDetail = $this->suratQuranDetail($this->form->surat);
-        $this->jumlahAyat = $this->suratDetail["data"]["jumlahAyat"];
+        $this->jumlahAyat = $this->suratDetail['data']['jumlahAyat'];
 
         // Update ayat options
         $this->ayat = range(1, $this->jumlahAyat);
@@ -58,7 +62,7 @@ class HafalanEdit extends Component
 
     public function edit()
     {
-        $this->form->surat = $this->suratDetail["data"]["namaLatin"];
+        $this->form->surat = $this->suratDetail['data']['namaLatin'];
         try {
             $simpan = $this->form->update();
             $this->dispatch('sweet-alert', icon: 'success', title: 'data berhasil diupdate');
@@ -73,6 +77,7 @@ class HafalanEdit extends Component
     {
         $suratData = $this->suratQuran();
         $suratData = $suratData['data'];
+
         return view('livewire.santri.hafalan.hafalan-edit', compact('suratData'));
     }
 }

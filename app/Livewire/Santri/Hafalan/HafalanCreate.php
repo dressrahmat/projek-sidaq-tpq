@@ -2,21 +2,27 @@
 
 namespace App\Livewire\Santri\Hafalan;
 
-use Carbon\Carbon;
-use App\Traits\Quran;
-use App\Models\Hafalan;
-use Livewire\Component;
-use Illuminate\Support\Facades\DB;
 use App\Livewire\Forms\HafalanForm;
+use App\Models\Hafalan;
+use App\Traits\Quran;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+use Livewire\Component;
 
 class HafalanCreate extends Component
 {
     use Quran;
+
     public HafalanForm $form;
+
     public $jumlahAyat;
+
     public $suratDetail;
+
     public $ayat;
+
     public $tanggal_dibuat;
+
     public $id;
     // public $hafalanId;
 
@@ -29,7 +35,7 @@ class HafalanCreate extends Component
     public function changeSurat()
     {
         $this->suratDetail = $this->suratQuranDetail($this->form->surat);
-        $this->jumlahAyat = $this->suratDetail["data"]["jumlahAyat"];
+        $this->jumlahAyat = $this->suratDetail['data']['jumlahAyat'];
 
         // Update ayat options
         $this->ayat = range(1, $this->jumlahAyat);
@@ -38,13 +44,13 @@ class HafalanCreate extends Component
     public function save()
     {
         $this->validate();
-        $this->form->surat = $this->suratDetail["data"]["namaLatin"];
+        $this->form->surat = $this->suratDetail['data']['namaLatin'];
         DB::beginTransaction();
         try {
-            $hafalan = Hafalan::whereHas('hafalan_user', function ($query){
+            $hafalan = Hafalan::whereHas('hafalan_user', function ($query) {
                 $query->where('id_user', $this->id)->whereNull('keterangan')->orWhere('keterangan', 'ulang');
             })->count();
-            
+
             if ($hafalan >= 5) {
                 throw new \Exception('Silahkan setorkan terlebih dahulu hafalan anda yang lain');
             }
@@ -64,6 +70,7 @@ class HafalanCreate extends Component
     {
         $suratData = $this->suratQuran();
         $suratData = $suratData['data'];
+
         return view('livewire.santri.hafalan.hafalan-create', compact('suratData'));
     }
 }

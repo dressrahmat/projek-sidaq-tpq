@@ -3,14 +3,13 @@
 namespace App\Livewire\Admin\Profile;
 
 use App\Models\Profile;
-use Livewire\Attributes\On;
-use Illuminate\Support\Facades\DB;
-use Spatie\Permission\Models\Role;
 use Illuminate\Database\Eloquent\Builder;
-use Rappasoft\LaravelLivewireTables\Views\Column;
-use App\Livewire\Admin\Profile\ProfilePilihMurobbi;
+use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\On;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
+use Rappasoft\LaravelLivewireTables\Views\Column;
 use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
+use Spatie\Permission\Models\Role;
 
 class ProfileTable extends DataTableComponent
 {
@@ -57,13 +56,13 @@ class ProfileTable extends DataTableComponent
                     }
                 }),
 
-                SelectFilter::make('Murobbi')
+            SelectFilter::make('Murobbi')
                 ->options([
                     '' => 'All',
                     '1' => 'Sudah ada murobbi',
                     '0' => 'Belum ada murobbi',
                 ])
-                ->filter(function(Builder $builder, string $value) {
+                ->filter(function (Builder $builder, string $value) {
                     if ($value === '1') {
                         $builder->wherenotNull('profile.id_murobbi');
                     } elseif ($value === '0') {
@@ -77,34 +76,34 @@ class ProfileTable extends DataTableComponent
     public function columns(): array
     {
         return [
-            Column::make("Id", "id")
+            Column::make('Id', 'id')
                 ->hideIf(auth()->user()->id),
-            Column::make("ID User", "id_user")
+            Column::make('ID User', 'id_user')
                 ->hideIf(auth()->user()->id),
-            Column::make("Nama lengkap", "nama_lengkap")
+            Column::make('Nama lengkap', 'nama_lengkap')
                 ->sortable(),
-            Column::make("Ustadz", "murobbi.profile.nama_lengkap")
+            Column::make('Ustadz', 'murobbi.profile.nama_lengkap')
                 ->format(
-                    fn($value, $row, Column $column) => $value ? $value : 'belum ada murobbi'
+                    fn ($value, $row, Column $column) => $value ? $value : 'belum ada murobbi'
                 ),
-            Column::make("Email", "user.email")
-            ->sortable(),
-            Column::make("Jabatan", "user.roles.id")
-                ->format(fn ($value) => implode(", ", DB::table('model_has_roles')
-                ->where('model_type', 'App\Models\User')
-                ->where('model_id', $value)->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
-                ->get()
-                ->pluck('name')->toArray())
-            ) 
+            Column::make('Email', 'user.email')
+                ->sortable(),
+            Column::make('Jabatan', 'user.roles.id')
+                ->format(fn ($value) => implode(', ', DB::table('model_has_roles')
+                    ->where('model_type', 'App\Models\User')
+                    ->where('model_id', $value)->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
+                    ->get()
+                    ->pluck('name')->toArray())
+                )
                 ->searchable()
                 ->sortable(),
-            Column::make("Aksi")->label(fn ($row, Column $column) => view('components.partials.datatable.aksi')->withRow($row)),
+            Column::make('Aksi')->label(fn ($row, Column $column) => view('components.partials.datatable.aksi')->withRow($row)),
         ];
     }
 
     public function builder(): Builder
     {
-        return Profile::with(['user.roles', 'murobbi'])->whereHas('user', function($q){
+        return Profile::with(['user.roles', 'murobbi'])->whereHas('user', function ($q) {
             $q->where('id_masjid', auth()->user()->id_masjid);
         });
     }

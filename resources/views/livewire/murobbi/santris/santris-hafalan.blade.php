@@ -54,13 +54,13 @@
                                     <!-- Status -->
                                     <td class="mb-1 col-span-2">
                                         <div class="form-control">
-                                            <label class="label cursor-pointer">
-                                                <span class="label-text">Checklis jika sudah selesai</span>
+                                            <label class="label cursor-pointer gap-x-2">
                                                 <input type="checkbox" id="status.{{ $setoran->id }}"
                                                     wire:model="status.{{ $setoran->id }}"
                                                     wire:change="changeStatus({{ $setoran->id }})"
                                                     @if ($setoran->status !== null) checked="checked" @endif
                                                     class="checkbox" />
+                                                <span class="label-text">Checklis surah jika sudah selesai</span>
                                             </label>
                                         </div>
                                     </td>

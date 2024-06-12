@@ -2,7 +2,7 @@
 
     <x-dialog-modal wire:model.live="modalEdit" submit="edit">
         <x-slot name="title">
-            Form Edit Hak Akses
+            Form Edit Hafalan
         </x-slot>
 
         <x-slot name="content">

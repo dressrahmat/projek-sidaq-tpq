@@ -5,6 +5,7 @@ namespace App\Livewire\Murobbi\Santris;
 use App\Livewire\Forms\HafalanForm;
 use App\Models\Hafalan;
 use App\Models\User;
+use App\Traits\Quran;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\On;
@@ -12,11 +13,17 @@ use Livewire\Component;
 
 class SantrisHafalan extends Component
 {
+    use Quran;
+
     public HafalanForm $form;
 
     public $modalHafalan = false;
 
     public $nama_santri;
+
+    public $quran;
+
+    public $jmlhAyat;
 
     public $hafalan;
 
@@ -26,6 +33,11 @@ class SantrisHafalan extends Component
 
     public $keterangan = [];
 
+    public function mount()
+    {
+        $this->quran = $this->suratQuran();
+    }
+
     #[On('hafalan')]
     public function set_form(User $data)
     {
@@ -33,23 +45,14 @@ class SantrisHafalan extends Component
         $this->id = $data->id;
         $this->modalHafalan = true;
 
-        $this->hafalan = Hafalan::whereHas('hafalan_user', function ($query) {
-            $query->where('id_user', $this->id)->whereNull('keterangan')->orWhere('keterangan', 'ulang');
-        })->get();
-
-        foreach ($this->hafalan as $key => $value) {
-            $this->keterangan[$value->id] = $value->keterangan;
-        }
-
     }
-    
 
     public function changeKeterangan($id)
     {
         $hafalan = Hafalan::findOrFail($id);
-        if ($this->keterangan[$id] != "") {
+        if ($this->keterangan[$id] != '') {
             $hafalan->update([
-                'keterangan' => $this->keterangan[$id]
+                'keterangan' => $this->keterangan[$id],
             ]);
             $this->dispatch('sweet-alert', icon: 'success', title: 'Data berhasil diupdate');
         }
@@ -59,12 +62,29 @@ class SantrisHafalan extends Component
     public function changeStatus($id)
     {
         $hafalan = Hafalan::findOrFail($id);
-        
-        if ($hafalan->keterangan == "lanjut") {
+
+        $namaSuratDicari = $hafalan->surat;
+
+        foreach ($this->quran['data'] as $key => $value) {
+            $data = $value;
+
+            // Jika namaLatin pada data sesuai dengan nama surat yang dicari
+            if ($data['namaLatin'] === $namaSuratDicari) {
+                // Ambil nomor surat
+                // $this->form->surat = $data["nomor"];
+                $this->jmlhAyat = $data['jumlahAyat'];
+                break;
+            }
+        }
+
+        if ($hafalan->keterangan == 'lanjut' && $hafalan->akhir_ayat == $this->jmlhAyat) {
             $hafalan->update([
-                'status' => $this->status[$id]
+                'status' => $this->status[$id],
             ]);
             $this->dispatch('sweet-alert', icon: 'success', title: 'Data berhasil diupdate');
+            $this->dispatch('refresh');
+        } else {
+            $this->dispatch('modal-sweet-alert', icon: 'error', title: 'data gagal di update', text: 'Hafalan belum selesai');
         }
 
     }
@@ -98,9 +118,17 @@ class SantrisHafalan extends Component
         $this->dispatch('refresh-data')->to(SantrisTable::class);
     }
 
+    #[On('refresh')]
     public function render()
     {
-        // dd($hafalan);
+        $this->hafalan = Hafalan::whereHas('hafalan_user', function ($query) {
+            $query->where('id_user', $this->id)->whereNull('status')->orWhere('status', 0);
+        })->get();
+
+        foreach ($this->hafalan as $key => $value) {
+            $this->keterangan[$value->id] = $value->keterangan;
+        }
+
         return view('livewire.murobbi.santris.santris-hafalan');
     }
 }

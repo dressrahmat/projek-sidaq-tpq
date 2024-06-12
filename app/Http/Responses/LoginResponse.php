@@ -18,7 +18,7 @@ class LoginResponse implements LoginResponseContract
             return redirect()->route('profile.create');
         }
 
-        if (!$user->roles()->exists()) {
+        if (! $user->roles()->exists()) {
             return redirect()->route('beranda');
         }
 

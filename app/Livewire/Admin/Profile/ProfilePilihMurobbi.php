@@ -2,18 +2,18 @@
 
 namespace App\Livewire\Admin\Profile;
 
-use App\Models\User;
 use App\Models\Profile;
-use Livewire\Component;
-use Livewire\Attributes\On;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
-use App\Livewire\Admin\Profile\ProfileTable;
+use Livewire\Attributes\On;
+use Livewire\Component;
 
 class ProfilePilihMurobbi extends Component
 {
     public $aktif = false;
+
     public $data;
-    
+
     #[On('pilih-murobbi')]
     public function pilihMurobbi($data)
     {
@@ -27,8 +27,8 @@ class ProfilePilihMurobbi extends Component
         DB::beginTransaction();
         try {
             $simpan = Profile::whereIn('id', $this->data)->update([
-                            'id_murobbi' => $id
-                        ]);
+                'id_murobbi' => $id,
+            ]);
             $this->dispatch('sweet-alert', icon: 'success', title: 'data berhasil disimpan');
             $this->dispatch('set-reset');
             DB::commit();
@@ -41,10 +41,11 @@ class ProfilePilihMurobbi extends Component
         $this->aktif = false;
 
     }
-    
+
     public function render()
     {
         $dataUstadz = User::role('ustadz')->where('id_masjid', auth()->user()->id_masjid)->get();
+
         return view('livewire.admin.profile.profile-pilih-murobbi', compact('dataUstadz'));
     }
 }

@@ -3,8 +3,8 @@
 namespace App\Livewire\Santri\Hafalan;
 
 use App\Models\Hafalan;
-use Livewire\Component;
 use Livewire\Attributes\On;
+use Livewire\Component;
 
 class HafalanTable extends Component
 {
@@ -15,6 +15,7 @@ class HafalanTable extends Component
         $this->filter = $filter;
         $this->render();
     }
+
     #[On('refresh-data')]
     public function render()
     {
@@ -28,7 +29,7 @@ class HafalanTable extends Component
             $data->where('keterangan', 'lanjut');
         } elseif ($this->filter == 'Surat Selesai') {
             $data->where('status', true);
-        } 
+        }
 
         $data = $data->get();
 

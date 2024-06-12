@@ -1,5 +1,5 @@
 <div class="px-2 sm:px-10 pb-10 pt-20 min-h-screen">
-    <div class="flex flex-col sm:flex-row gap-x-8">
+    <div class="flex flex-col sm:flex-row-reverse gap-x-8">
         <div class="w-full bg-base-100 p-4 rounded-md shadow-md">
             <h3 class="font-bold text-2xl">Tambah Hafalan </h3>
             <div>

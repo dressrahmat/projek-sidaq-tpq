@@ -24,7 +24,7 @@ class HafalanCreate extends Component
     public $tanggal_dibuat;
 
     public $id;
-    // public $hafalanId;
+    // public $jmlhHafalanId;
 
     public function mount()
     {
@@ -47,13 +47,26 @@ class HafalanCreate extends Component
         $this->form->surat = $this->suratDetail['data']['namaLatin'];
         DB::beginTransaction();
         try {
-            $hafalan = Hafalan::whereHas('hafalan_user', function ($query) {
+            $jmlhHafalan = Hafalan::whereHas('hafalan_user', function ($query) {
                 $query->where('id_user', $this->id)->whereNull('keterangan')->orWhere('keterangan', 'ulang');
             })->count();
-
-            if ($hafalan >= 5) {
+            
+            if ($jmlhHafalan >= 5) {
                 throw new \Exception('Silahkan setorkan terlebih dahulu hafalan anda yang lain');
             }
+
+            $dataHafalan = Hafalan::whereHas('hafalan_user', function ($query) {
+                $query->where('id_user', $this->id)->where('status', 1);
+            })->get();
+
+
+            // Memeriksa apakah ada surat yang sama dalam hasil query
+            foreach ($dataHafalan as $hafalan) {
+                if ($hafalan->surat == $this->form->surat) {
+                    throw new \Exception('Hafalan surah ini sudah selesai');
+                }
+            }
+
             $simpan = $this->form->store();
             $this->dispatch('sweet-alert', icon: 'success', title: 'data berhasil disimpan');
             $this->dispatch('set-reset');

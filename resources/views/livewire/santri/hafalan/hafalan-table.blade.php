@@ -28,12 +28,14 @@
                         <td>{{ $hafalan->surat }}</td>
                         <td>{{ $hafalan->awal_ayat }}</td>
                         <td>{{ $hafalan->akhir_ayat }}</td>
-                        <td>
-                            <x-button @click="$dispatch('form-edit', { id: '{{ $hafalan->id }}' })"
-                                wire:key="{{ $hafalan->id }}" type="button">
-                                <i class="fas fa-edit text-base"></i>
-                            </x-button>
-                        </td>
+                        @if ($hafalan->keterangan != 'lanjut')
+                            <td>
+                                <x-button @click="$dispatch('form-edit', { id: '{{ $hafalan->id }}' })"
+                                    wire:key="{{ $hafalan->id }}" type="button">
+                                    <i class="fas fa-edit text-base"></i>
+                                </x-button>
+                            </td>
+                        @endif
                     </tr>
                 @empty
                     <tr>

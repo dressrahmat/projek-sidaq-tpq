@@ -104,7 +104,7 @@ class User extends Authenticatable
      */
     public function hafalan_user(): BelongsToMany
     {
-        return $this->belongsToMany(Kemampuan::class, 'hafalan_user', 'id_user', 'id_hafalan')
+        return $this->belongsToMany(Hafalan::class, 'hafalan_user', 'id_user', 'id_hafalan')
             ->withPivot(['nilai', 'created_at', 'updated_at']);
     }
 }

@@ -11,7 +11,9 @@ class SantrisTable extends Component
     #[On('refresh-data')]
     public function render()
     {
-        $dataSantri = Profile::whereHas('murobbi', function ($query) {
+        $dataSantri = Profile::whereHas('user.roles', function($query){
+            $query->where('name', 'santri');
+        })->whereHas('murobbi', function ($query) {
             $query->where('id_murobbi', auth()->user()->id);
         })->get();
 

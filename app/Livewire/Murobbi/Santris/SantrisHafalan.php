@@ -45,6 +45,14 @@ class SantrisHafalan extends Component
         $this->id = $data->id;
         $this->modalHafalan = true;
 
+        $this->hafalan = Hafalan::whereHas('hafalan_user', function ($query) {
+            $query->where('id_user', $this->id)->whereNull('keterangan')->orWhere('keterangan', 'ulang')->whereNull('status')->orWhere('status', 0);
+        })->get();
+
+        foreach ($this->hafalan as $key => $value) {
+            $this->keterangan[$value->id] = $value->keterangan;
+        }
+
     }
 
     public function changeKeterangan($id)
@@ -118,17 +126,8 @@ class SantrisHafalan extends Component
         $this->dispatch('refresh-data')->to(SantrisTable::class);
     }
 
-    #[On('refresh')]
     public function render()
     {
-        $this->hafalan = Hafalan::whereHas('hafalan_user', function ($query) {
-            $query->where('id_user', $this->id)->whereNull('status')->orWhere('status', 0);
-        })->get();
-
-        foreach ($this->hafalan as $key => $value) {
-            $this->keterangan[$value->id] = $value->keterangan;
-        }
-
         return view('livewire.murobbi.santris.santris-hafalan');
     }
 }

@@ -14,7 +14,7 @@
                     <div class="w-10 rounded-full">
                         @if (auth()->user()->profile)
                             <img alt="Tailwind CSS Navbar component"
-                                src="{{ asset(auth()->user()->profile->photo_profile) }}" />
+                                src="{{ asset('storage/' . auth()->user()->profile->photo_profile) }}" />
                         @else
                             <img alt="Tailwind CSS Navbar component"
                                 src="{{ asset('../assets/images/users/user.png') }}" />

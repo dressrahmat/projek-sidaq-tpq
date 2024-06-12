@@ -43,25 +43,27 @@
                 </a>
             </li>
         @endrole
-        <li>
-            <details {{ request()->routeIs('profile.*') ? 'open' : '' }}>
-                <summary
-                    class="px-4 py-4 text-base-100 hover:bg-base-content hover:glass rounded-md hover:text-base-100 ">
-                    <i class="fa fa-solid fa-toolbox"></i>
-                    <span class="ml-2" x-show="isOpen">Manajemen</span>
-                </summary>
-                <ul :class="{ 'mt-2': isOpen, 'ml-0 mt-4': !isOpen }"
-                    class="{{ request()->routeIs('profile.*') ? 'glass rounded-md' : '' }}">
-                    <li class="pr-1.5">
-                        <a wire:navigate href="{{ route('profile.index') }}"
-                            class="flex items-center py-4 my-1 {{ request()->routeIs('profile.index') ? 'glass rounded-md active bg-base-100 shadow-sm text-neutral' : ' text-base-100' }}">
-                            <i class="fas fa-file-contract"></i>
-                            <span class="ml-2" x-show="isOpen">SDM</span>
-                        </a>
-                    </li>
-                </ul>
-            </details>
-        </li>
+        @role('admin')
+            <li>
+                <details {{ request()->routeIs('profile.*') ? 'open' : '' }}>
+                    <summary
+                        class="px-4 py-4 text-base-100 hover:bg-base-content hover:glass rounded-md hover:text-base-100 ">
+                        <i class="fa fa-solid fa-toolbox"></i>
+                        <span class="ml-2" x-show="isOpen">Manajemen</span>
+                    </summary>
+                    <ul :class="{ 'mt-2': isOpen, 'ml-0 mt-4': !isOpen }"
+                        class="{{ request()->routeIs('profile.*') ? 'glass rounded-md' : '' }}">
+                        <li class="pr-1.5">
+                            <a wire:navigate href="{{ route('profile.index') }}"
+                                class="flex items-center py-4 my-1 {{ request()->routeIs('profile.index') ? 'glass rounded-md active bg-base-100 shadow-sm text-neutral' : ' text-base-100' }}">
+                                <i class="fas fa-file-contract"></i>
+                                <span class="ml-2" x-show="isOpen">SDM</span>
+                            </a>
+                        </li>
+                    </ul>
+                </details>
+            </li>
+        @endrole
         <li>
             <details
                 {{ request()->routeIs('permissions.*') || request()->routeIs('roles.*') || request()->routeIs('users.*') ? 'open' : '' }}>

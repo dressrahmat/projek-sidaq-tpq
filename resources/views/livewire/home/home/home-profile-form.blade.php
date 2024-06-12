@@ -74,7 +74,7 @@
                         <label class="form-control">
                             <span class="label-text py-2">Tanggal Lahir</span>
                             <input type="date" wire:model="form.tanggal_lahir" placeholder="Masukkan Tanggal Lahir"
-                                class="input input-primary bg-gray-100 rounded-md  @error('form.tanggal_lahir') border-red-500 @enderror"
+                                class="input input-primary bg-gray-100 rounded-md w-full  @error('form.tanggal_lahir') border-red-500 @enderror"
                                 autofocus />
                             @error('form.tanggal_lahir')
                                 <span class="error text-red-500">{{ $message }}</span>

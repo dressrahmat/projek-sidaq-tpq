@@ -5,6 +5,7 @@ namespace App\Livewire\Forms;
 use Livewire\Form;
 use App\Models\Profile;
 use Livewire\Attributes\Rule;
+use Livewire\Attributes\Validate;
 use Illuminate\Support\Facades\Storage;
 
 class ProfileForm extends Form
@@ -34,7 +35,8 @@ class ProfileForm extends Form
     #[Rule('required', as: 'Alamat')]
     public $alamat;
 
-    #[Rule('required|image|max:2024|mimes:jpg,jpeg,png|dimensions:width=300,height=400', as: 'Photo Profile')]
+    #[Validate('max:2024', message: 'Anda melebihkan ukuran gambar', as: 'Photo Profile')]
+    #[Rule('required|image|mimes:jpg,jpeg,png|dimensions:width=300,height=400', as: 'Photo Profile')]
     public $photo_profile;
 
     public $admin;

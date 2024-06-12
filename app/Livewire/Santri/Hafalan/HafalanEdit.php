@@ -16,14 +16,35 @@ class HafalanEdit extends Component
     public $ayat;
     public $suratDetail;
     public $jumlahAyat;
+    public $quran;
     public $modalEdit = false;
+
+    public function mount()
+    {
+        $this->quran = $this->suratQuran();
+    }
 
     #[On('form-edit')]
     public function set_form(Hafalan $id)
     {
         $this->form->setForm($id);
+        $namaSuratDicari = $this->form->surat;
+        
+        foreach($this->quran["data"] as $key => $value) {
+            $data = $value;
+
+            // Jika namaLatin pada data sesuai dengan nama surat yang dicari
+            if ($data["namaLatin"] === $namaSuratDicari) {
+                // Ambil nomor surat
+                $this->form->surat = $data["nomor"];
+                break;
+            }
+        }
+
 
         $this->modalEdit = true;
+
+        $this->changeSurat();
     }
 
     public function changeSurat()

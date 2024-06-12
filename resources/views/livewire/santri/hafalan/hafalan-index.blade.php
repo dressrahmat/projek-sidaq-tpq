@@ -1,4 +1,4 @@
-<div class="px-4 sm:px-10 min-h-screen">
+<div class="px-4 sm:px-10 pb-10 pt-20 min-h-screen">
     <div>
         <h3>Tambah Hafalan</h3>
         <div>

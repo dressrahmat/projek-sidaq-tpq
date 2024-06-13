@@ -10,9 +10,9 @@
     </div>
 
     <div>
-        <table class="table text-base">
+        <table class="table text-xs sm:text-base">
             <!-- head -->
-            <thead class="sm:text-base">
+            <thead class="text-xs sm:text-base">
                 <tr>
                     <th>No</th>
                     <th>Surah</th>
@@ -30,10 +30,11 @@
                         <td>{{ $hafalan->akhir_ayat }}</td>
                         @if ($hafalan->keterangan != 'lanjut')
                             <td>
-                                <x-button @click="$dispatch('form-edit', { id: '{{ $hafalan->id }}' })"
+                                <button class="btn btn-primary btn-xs text-white"
+                                    @click="$dispatch('form-edit', { id: '{{ $hafalan->id }}' })"
                                     wire:key="{{ $hafalan->id }}" type="button">
-                                    <i class="fas fa-edit text-base"></i>
-                                </x-button>
+                                    <i class="fas fa-edit sm:text-base"></i>
+                                </button>
                             </td>
                         @endif
                     </tr>

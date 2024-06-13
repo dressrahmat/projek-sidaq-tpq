@@ -6,10 +6,10 @@
         </x-slot>
 
         <x-slot name="content">
-            <div class="grid grid-cols-12 gap-2">
+            <div class="grid grid-cols-2 gap-2 text-xs">
 
                 <!-- Surah -->
-                <div class="mb-1 col-span-6">
+                <div class="mb-1">
                     <x-label for="form.surat" value="Surat" />
                     <select name="" id=""
                         class="select select-primary select-bordered bg-gray-50 sm:w-full" wire:model="form.surat"
@@ -22,34 +22,38 @@
                     <x-input-error for="form.surat" class="mt-1" />
                 </div>
 
-                <!-- Awal Ayat -->
-                <div class="mb-1 col-span-3">
-                    <x-label for="form.awal_ayat" value="Awal Ayat" />
-                    <select name="" id="form.awal_ayat" class="select select-bordered bg-gray-50 w-20 sm:w-full"
-                        wire:model="form.awal_ayat">
-                        @if ($ayat)
-                            @foreach ($ayat as $number)
-                                <option @if ($form->awal_ayat == $number) selected @endif value="{{ $number }}">
-                                    {{ $number }}</option>
-                            @endforeach
-                        @endif
-                    </select>
-                    <x-input-error for="form.awal_ayat" class="mt-1" />
-                </div>
+                <div class="flex flex-col sm:flex-row gap-2 items-end">
+                    <!-- Awal Ayat -->
+                    <div class="mb-1">
+                        <x-label for="form.awal_ayat" value="Awal Ayat" />
+                        <select name="" id="form.awal_ayat"
+                            class="select select-bordered bg-gray-50 w-20 sm:w-full" wire:model="form.awal_ayat">
+                            @if ($ayat)
+                                @foreach ($ayat as $number)
+                                    <option @if ($form->awal_ayat == $number) selected @endif
+                                        value="{{ $number }}">
+                                        {{ $number }}</option>
+                                @endforeach
+                            @endif
+                        </select>
+                        <x-input-error for="form.awal_ayat" class="mt-1" />
+                    </div>
 
-                <!-- Akhir Ayat -->
-                <div class="mb-1 col-span-3">
-                    <x-label for="form.akhir_ayat" value="Akhir Ayat" />
-                    <select name="" id="form.akhir_ayat" class="select select-bordered bg-gray-50 w-20 sm:w-full"
-                        wire:model="form.akhir_ayat">
-                        @if ($ayat)
-                            @foreach ($ayat as $number)
-                                <option @if ($form->akhir_ayat == $number) selected @endif value="{{ $number }}">
-                                    {{ $number }}</option>
-                            @endforeach
-                        @endif
-                    </select>
-                    <x-input-error for="form.akhir_ayat" class="mt-1" />
+                    <!-- Akhir Ayat -->
+                    <div class="mb-1">
+                        <x-label for="form.akhir_ayat" value="Akhir Ayat" />
+                        <select name="" id="form.akhir_ayat"
+                            class="select select-bordered bg-gray-50 w-20 sm:w-full" wire:model="form.akhir_ayat">
+                            @if ($ayat)
+                                @foreach ($ayat as $number)
+                                    <option @if ($form->akhir_ayat == $number) selected @endif
+                                        value="{{ $number }}">
+                                        {{ $number }}</option>
+                                @endforeach
+                            @endif
+                        </select>
+                        <x-input-error for="form.akhir_ayat" class="mt-1" />
+                    </div>
                 </div>
 
             </div>

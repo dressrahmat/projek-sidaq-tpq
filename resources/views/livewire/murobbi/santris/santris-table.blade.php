@@ -13,7 +13,8 @@
                 <div class="card-body basis-2/3 justify-between mb-2">
                     <h2 class="card-title h-10">{{ $santri->nama_lengkap }}</h2>
                     <div class="text-base-content">
-                        @foreach ($santri->user->kemampuan_user()->whereDate('kemampuan_user.created_at', Carbon\Carbon::today())->latest()->limit(1)->get() as $kemampuan)
+                        <strong class="underline">Kemampuan</strong>
+                        @forelse ($santri->user->kemampuan_user()->whereDate('kemampuan_user.created_at', Carbon\Carbon::today())->latest()->limit(1)->get() as $kemampuan)
                             <div class="flex justify-between mb-2">
                                 <p>Total Nilai Terakhir : <span
                                         class="font-bold">{{ $kemampuan->pivot->total_nilai }}</span></p>
@@ -21,8 +22,11 @@
                                     {{ \Carbon\Carbon::parse($kemampuan->pivot->created_at)->locale('id')->isoFormat('dddd, D MMMM YYYY') }}
                                 </p>
                             </div>
-                        @endforeach
-                        @foreach ($santri->user->hafalan_user()->where('keterangan', 'lanjut')->whereDate('hafalan_user.created_at', Carbon\Carbon::today())->latest()->limit(1)->get() as $hafalan)
+                        @empty
+                            <p>Total Nilai Terakhir : <span class="font-bold">-</span></p>
+                        @endforelse
+                        <strong class="underline">Hafalan</strong>
+                        @forelse ($santri->user->hafalan_user()->where('keterangan', 'lanjut')->whereDate('hafalan_user.created_at', Carbon\Carbon::today())->latest()->limit(1)->get() as $hafalan)
                             <div class="flex justify-between">
                                 <p>Setoran Terakhir : <span class="font-bold">{{ $hafalan->surat }} :
                                         {{ $hafalan->awal_ayat }} - {{ $hafalan->akhir_ayat }}</span>
@@ -31,7 +35,9 @@
                                     {{ \Carbon\Carbon::parse($hafalan->created_at)->locale('id')->isoFormat('dddd, D MMMM YYYY') }}
                                 </p>
                             </div>
-                        @endforeach
+                        @empty
+                            <p>Setoran Terakhir : <span class="font-bold">-</span></p>
+                        @endforelse
                     </div>
                     <div class="card-actions justify-end">
                         <button @click="$dispatch('kemampuan', { data: '{{ $santri->user->id }}' })"

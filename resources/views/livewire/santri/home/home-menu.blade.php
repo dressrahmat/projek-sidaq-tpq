@@ -14,7 +14,7 @@
             <a wire:navigate href="{{ route('hafalan.index') }}"
                 class="flex flex-col justify-center items-center w-40 h-40 sm:w-80 sm:h-80 bg-blue-700 glass rounded-md shadow-md">
                 <img src="{{ asset('assets/images/website/ikon/4.png') }}" alt="" class="w-24">
-                <h6 class="text-white font-bold">Target</h6>
+                <h6 class="text-white font-bold">Amal Yaumi</h6>
             </a>
             <a wire:navigate href="{{ route('hafalan.index') }}"
                 class="flex flex-col justify-center items-center w-40 h-40 sm:w-80 sm:h-80 bg-blue-700 glass rounded-md shadow-md">
